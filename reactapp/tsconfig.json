@@ -19,6 +19,6 @@
     "baseUrl": "./src",
     "jsx": "react-jsx"
   },
-  "include": ["./src/**/*", "styled.d.ts"],
+  "include": [".eslintrc.cjs", "./src/**/*", "styled.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
