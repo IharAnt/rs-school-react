@@ -4,6 +4,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Main from './pages/main';
 import NotFound from './pages/notFound';
+import AboutUs from './pages/aboutUs';
 
 class App1 extends React.Component {
   state = { count: 0 };
@@ -41,6 +42,8 @@ class App extends React.Component {
     return (
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/about" element={<AboutUs />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     );
