@@ -1,8 +1,11 @@
 import reactLogo from './assets/react.svg';
 import './App.scss';
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Main from './pages/main';
+import NotFound from './pages/notFound';
 
-class App extends React.Component {
+class App1 extends React.Component {
   state = { count: 0 };
 
   render(): React.ReactNode {
@@ -31,4 +34,16 @@ class App extends React.Component {
   }
 }
 
+class App extends React.Component {
+  state = { count: 0 };
+
+  render(): React.ReactNode {
+    return (
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    );
+  }
+}
 export default App;
