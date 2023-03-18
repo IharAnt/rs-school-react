@@ -27,6 +27,6 @@ describe('App test', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText(/About Us/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/About Us/i)).toBeInTheDocument();
   });
 });

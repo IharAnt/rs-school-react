@@ -1,12 +1,14 @@
 import reactLogo from './assets/react.svg';
 import './App.scss';
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Main from './pages/main';
 import NotFound from './pages/notFound';
 import AboutUs from './pages/aboutUs';
+import Header from './components/Header';
+import { withRouter } from './helper/withRouter';
 
-class App1 extends React.Component {
+export class App1 extends React.Component {
   state = { count: 0 };
 
   render(): React.ReactNode {
@@ -35,17 +37,22 @@ class App1 extends React.Component {
   }
 }
 
+const HeaderWithRouter = withRouter(Header);
+
 class App extends React.Component {
   state = { count: 0 };
 
   render(): React.ReactNode {
     return (
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <>
+        <HeaderWithRouter />
+        <Routes>
+          <Route path="/" element={<Navigate to="/main" replace />} />
+          <Route path="/main" element={<Main />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </>
     );
   }
 }
