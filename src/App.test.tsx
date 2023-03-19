@@ -1,11 +1,11 @@
 import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import App from './App';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { HashRouter, MemoryRouter } from 'react-router-dom';
 
 describe('App test', () => {
   it('Render App', () => {
-    render(<App></App>, { wrapper: BrowserRouter });
+    render(<App></App>, { wrapper: HashRouter });
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Main page');
   });
