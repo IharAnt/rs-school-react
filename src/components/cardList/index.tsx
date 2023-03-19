@@ -11,7 +11,7 @@ export default class CardList extends Component<ICardListProps> {
 
   render() {
     return (
-      <div className={`card-list ${this.props.className || ''}`}>
+      <div className="card-list">
         {this.props.products.map((product) => {
           return <Card product={product} key={product.id}></Card>;
         })}

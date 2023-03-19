@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import App from './App';
-import { BrowserRouter, HashRouter, MemoryRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 
 describe('App test', () => {
   it('Render App', () => {
@@ -17,7 +17,7 @@ describe('App test', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText(/404/i)).toBeInTheDocument();
+    expect(screen.getByText(/Page not found/i)).toBeInTheDocument();
   });
 
   it('Render about', () => {
@@ -27,6 +27,6 @@ describe('App test', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getAllByText(/About Us/i)).toBeInTheDocument();
+    expect(screen.getByText(/About Us page/i)).toBeInTheDocument();
   });
 });

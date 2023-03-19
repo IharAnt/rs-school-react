@@ -6,7 +6,7 @@ export default class NotFound extends Component {
   render() {
     return (
       <div className="wrapper">
-        <h1>404</h1>
+        <h1>Page not found</h1>
         <Link to="/main">Go main page</Link>
       </div>
     );

@@ -10,7 +10,7 @@ export default class Card extends Component<ICardProps> {
 
   render() {
     return (
-      <div className={`card-vitrine ${this.props.className || ''}`}>
+      <div className="card-vitrine">
         <a className="card__link" href={`/details?id=${this.props.product.id}`}>
           <img
             className="card__image card-img-top"
