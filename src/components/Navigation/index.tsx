@@ -1,3 +1,4 @@
+import React from 'react';
 import { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import './style.scss';
@@ -10,12 +11,12 @@ export default class Navigation extends Component<unknown> {
     this.state = { activePage: '' };
   }
   setActive(props: ClassNameProps): string | undefined {
-    return props.isActive ? ` active` : '';
+    return props.isActive ? `nav-link active` : 'nav-link';
   }
 
   render() {
     return (
-      <nav>
+      <nav className="header__navigation">
         <NavLink to="/main" className={this.setActive}>
           Main
         </NavLink>

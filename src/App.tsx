@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Main from './pages/main';
 import NotFound from './pages/notFound';
 import AboutUs from './pages/aboutUs';
-import Header from './components/Header';
+import Header from './components/header';
 import { withRouter } from './helper/withRouter';
 
 const HeaderWithRouter = withRouter(Header);

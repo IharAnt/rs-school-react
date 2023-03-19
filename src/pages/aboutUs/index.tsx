@@ -1,10 +1,10 @@
 import { Component } from 'react';
-import './index.scss';
+import './style.scss';
 
 export default class AboutUs extends Component {
   render() {
     return (
-      <div>
+      <div className="wrapper">
         <h1>About Us</h1>
       </div>
     );

@@ -1,10 +1,10 @@
-import Navigation from '../Navigation';
+import Navigation from '../navigation';
 import React, { Component } from 'react';
 import './style.scss';
-import { Props, State } from './types';
+import { NavProps, State } from './types';
 
-export default class Header extends Component<Props, State> {
-  constructor(props: Props) {
+export default class Header extends Component<NavProps, State> {
+  constructor(props: NavProps) {
     super(props);
     this.getActivePage = this.getActivePage.bind(this);
     this.state = { activePage: '' };
@@ -23,9 +23,11 @@ export default class Header extends Component<Props, State> {
 
   render() {
     return (
-      <header>
-        <Navigation />
-        <div>{this.getActivePage()}</div>
+      <header className="header">
+        <div className="wrapper header__wrapper">
+          <Navigation />
+          <div className="header__page">{this.getActivePage()}</div>
+        </div>
       </header>
     );
   }
