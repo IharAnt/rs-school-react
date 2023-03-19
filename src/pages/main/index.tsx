@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import CardList from '../../components/cardList';
-import { IProduct } from '../../types/interfaces/IProduct';
 import './style.scss';
 import product from '../../data/products.json';
 import SearchInput from '../../components/searchInput';
