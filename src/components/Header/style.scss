@@ -1,0 +1,17 @@
+.header {
+  background-color: black;
+}
+
+.header__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+  max-height: 80px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.header__page {
+  color: white;
+}

@@ -1,0 +1,18 @@
+.nav-link {
+  font-weight: 500;
+  color: white;
+  text-decoration: inherit;
+  &:hover {
+    color: #c2c4e8;
+  }
+  &.active {
+    color: #ed0b71;
+  }
+}
+
+.header__navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 3rem;
+}
