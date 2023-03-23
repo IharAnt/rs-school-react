@@ -5,6 +5,7 @@ import NotFound from './pages/notFound';
 import AboutUs from './pages/aboutUs';
 import Header from './components/header';
 import { withRouter } from './helper/withRouter';
+import FormPage from './pages/formPage';
 
 const HeaderWithRouter = withRouter(Header);
 
@@ -19,6 +20,7 @@ class App extends React.Component {
           <Route path="/" element={<Navigate to="/main" replace />} />
           <Route path="/main" element={<Main />} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/form" element={<FormPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </>

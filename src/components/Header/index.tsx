@@ -17,7 +17,9 @@ export default class Header extends Component<NavProps, State> {
     if (this.props.location.pathname === '/about') {
       return 'About Us';
     }
-
+    if (this.props.location.pathname === '/form') {
+      return 'Form Page';
+    }
     return '404';
   }
 

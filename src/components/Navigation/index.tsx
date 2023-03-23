@@ -20,6 +20,9 @@ export default class Navigation extends Component<unknown> {
         <NavLink to="/main" className={this.setActive}>
           Main
         </NavLink>
+        <NavLink to="/form" className={this.setActive}>
+          Form
+        </NavLink>
         <NavLink to="/about" className={this.setActive}>
           About
         </NavLink>
