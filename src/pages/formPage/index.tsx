@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import RegistrationForm from '../../components/registrationForm';
 import './style.scss';
 
 export default class FormPage extends Component<unknown, unknown> {
@@ -10,6 +11,7 @@ export default class FormPage extends Component<unknown, unknown> {
     return (
       <div className="wrapper">
         <h1>Form page</h1>
+        <RegistrationForm></RegistrationForm>
       </div>
     );
   }
