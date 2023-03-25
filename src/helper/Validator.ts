@@ -31,9 +31,16 @@ export default class Validator {
     currentDate.setFullYear(currentDate.getFullYear() - noValidYears);
     const selectedDate = new Date(date);
     if (currentDate < selectedDate) {
-      return { isValid: false, error: `You should older then ${noValidYears} years` };
+      return { isValid: false, error: `You should be older then ${noValidYears} years` };
     }
 
+    return { isValid: true, error: '' };
+  }
+
+  static validateAgree(isAgree?: boolean): IValid {
+    if (!isAgree) {
+      return { isValid: false, error: 'You should give agree to the processing of personal data' };
+    }
     return { isValid: true, error: '' };
   }
 }

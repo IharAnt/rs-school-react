@@ -41,4 +41,12 @@ describe('Validator test', () => {
     const goodDate = '2012-12-12';
     expect(Validator.validateBirthday(10, goodDate).isValid).toEqual(true);
   });
+
+  it('validateAgree. checked should retern valid data', () => {
+    expect(Validator.validateAgree(true).isValid).toEqual(true);
+  });
+
+  it('validateAgree. unchecked should not retern valid data', () => {
+    expect(Validator.validateAgree(false).isValid).toEqual(false);
+  });
 });

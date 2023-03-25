@@ -41,6 +41,7 @@ export default class RegistrationForm extends Component<unknown, IRegistrationSt
     errors.email = Validator.validateEmail(this.formRefs.email.current?.value).error;
     errors.userName = Validator.validateName(this.formRefs.userName.current?.value).error;
     errors.birthday = Validator.validateBirthday(10, this.formRefs.birthday.current?.value).error;
+    errors.agree = Validator.validateAgree(this.formRefs.agree.current?.checked).error;
 
     this.setState({ inputErrors: errors });
   }
@@ -80,6 +81,14 @@ export default class RegistrationForm extends Component<unknown, IRegistrationSt
           inputref={this.formRefs.agree}
           error={this.state.inputErrors.agree}
         ></CheckInput>
+        {/* <CheckInput
+          label="I give my agree to the processing of personal data"
+          id="agree"
+          name="agree"
+          type="radio"
+          inputref={this.formRefs.agree}
+          error={this.state.inputErrors.agree}
+        ></CheckInput> */}
         <button type="submit" className="btn">
           Submit
         </button>
