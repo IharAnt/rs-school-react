@@ -1,23 +1,27 @@
 import React from 'react';
 import { Component } from 'react';
+import Validator from '../../helper/Validator';
+import CheckInput from '../checkInput';
 import TextInput from '../textInput';
 import './style.scss';
-import { IRegistrationState } from './types';
+import { IRegistrationState, IRegistrationStateError } from './types';
 
 export default class RegistrationForm extends Component<unknown, IRegistrationState> {
   private formRefs: {
     userName: React.RefObject<HTMLInputElement>;
     email: React.RefObject<HTMLInputElement>;
     birthday: React.RefObject<HTMLInputElement>;
+    agree: React.RefObject<HTMLInputElement>;
   };
 
   constructor(props: unknown) {
     super(props);
     this.state = {
-      formErrors: {
+      inputErrors: {
         email: '',
         userName: '',
         birthday: '',
+        agree: '',
       },
     };
     this.submit = this.submit.bind(this);
@@ -26,13 +30,19 @@ export default class RegistrationForm extends Component<unknown, IRegistrationSt
       email: React.createRef(),
       userName: React.createRef(),
       birthday: React.createRef(),
+      agree: React.createRef(),
     };
   }
 
   submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    this.setState({ formErrors: { userName: 'Error name' } });
-    this.setState({ formErrors: { email: 'Error email' } });
+    const errors: IRegistrationStateError = {};
+
+    errors.email = Validator.validateEmail(this.formRefs.email.current?.value).error;
+    errors.userName = Validator.validateName(this.formRefs.userName.current?.value).error;
+    errors.birthday = Validator.validateBirthday(10, this.formRefs.birthday.current?.value).error;
+
+    this.setState({ inputErrors: errors });
   }
 
   render() {
@@ -41,50 +51,39 @@ export default class RegistrationForm extends Component<unknown, IRegistrationSt
         <TextInput
           label="Email:"
           id="email"
+          name="email"
+          type="email"
           inputref={this.formRefs.email}
-          error={this.state.formErrors.email}
+          error={this.state.inputErrors.email}
         ></TextInput>
-        <div className="reg-form-group">
-          <label htmlFor="userName">Username:</label>
-          <input
-            className="reg-form__input"
-            id="userName"
-            name="userName"
-            type="text"
-            ref={this.formRefs.userName}
-          />
-          {this.state.formErrors.userName && (
-            <div className="reg-form__error-message">{this.state.formErrors.userName}</div>
-          )}
-        </div>
-        <div className="reg-form-group">
-          <label htmlFor="birthday">Birthday:</label>
-          <input
-            className="reg-form__input"
-            id="birthday"
-            name="birthday"
-            type="date"
-            ref={this.formRefs.birthday}
-          />
-          {this.state.formErrors.birthday && (
-            <div className="reg-form__error-message">{this.state.formErrors.birthday}</div>
-          )}
-        </div>
+        <TextInput
+          label="Username:"
+          id="userName"
+          name="userName"
+          type="text"
+          inputref={this.formRefs.userName}
+          error={this.state.inputErrors.userName}
+        ></TextInput>
+        <TextInput
+          label="Birthday:"
+          id="birthday"
+          name="birthday"
+          type="date"
+          inputref={this.formRefs.birthday}
+          error={this.state.inputErrors.birthday}
+        ></TextInput>
+        <CheckInput
+          label="I give my agree to the processing of personal data"
+          id="agree"
+          name="agree"
+          type="checkbox"
+          inputref={this.formRefs.agree}
+          error={this.state.inputErrors.agree}
+        ></CheckInput>
         <button type="submit" className="btn">
           Submit
         </button>
       </form>
-      // <form onSubmit={this.submit}>
-      //   <div className="form-group">
-      //     <label htmlFor="email">Email</label>
-      //     <input type="email" id="email" name="email" />
-      //   </div>
-      //   <div className="form-group">
-      //     <label htmlFor="password">Password</label>
-      //     <input type="password" id="password" name="password" />
-      //   </div>
-      //   <button>Log in</button>
-      // </form>
     );
   }
 }

@@ -3,6 +3,7 @@
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { configDefaults } from 'vitest/config';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -24,8 +25,14 @@ export default defineConfig({
       provider: 'c8',
       reporter: ['text'],
       all: true,
-      // include: ['src//'],
-      // exclude: ['src/.{ts,tsx}'],
+      include: ['src//'],
+      exclude: [
+        ...configDefaults.exclude,
+        '**/types.ts',
+        '**/types/interfaces/',
+        '**/*.d.ts',
+        'src//main.tsx',
+      ],
     },
   },
 });

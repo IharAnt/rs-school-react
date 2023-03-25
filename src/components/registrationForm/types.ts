@@ -1,5 +1,5 @@
 export interface IRegistrationState {
-  formErrors: IRegistrationStateError;
+  inputErrors: IRegistrationStateError;
 }
 
 export interface IRegistrationStateError {

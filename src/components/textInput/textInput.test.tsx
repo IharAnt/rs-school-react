@@ -14,7 +14,6 @@ describe('Text input test', () => {
         id="email"
         inputref={emailRef}
         error="Error email message"
-        data-testid="text-input-element"
       ></TextInput>
     );
     const input = screen.getByTestId<HTMLInputElement>('text-input-element');

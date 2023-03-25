@@ -17,6 +17,7 @@ export default class TextInput extends Component<ITextInputProps> {
           {...this.props}
           className={`text-input ${!isValid ? 'input_error' : ''}`}
           ref={this.props.inputref}
+          data-testid="text-input-element"
         />
         {!isValid && <div className="input__error-message">{this.props.error}</div>}
       </div>
