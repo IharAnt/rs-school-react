@@ -6,6 +6,7 @@ export interface IRegistrationProps {
 
 export interface IRegistrationState {
   inputErrors: IRegistrationStateError;
+  addedMessages: string;
 }
 
 export interface IRegistrationStateError {

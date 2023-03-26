@@ -1,5 +1,13 @@
 .reg-form {
+  position: relative;
   margin: auto;
   width: 50%;
   min-width: 400px;
+}
+
+.reg-form__message {
+  position: absolute;
+  text-align: center;
+  right: 0;
+  color: rgb(102, 47, 255);
 }

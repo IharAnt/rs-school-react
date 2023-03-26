@@ -26,6 +26,7 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
         image: '',
         agree: '',
       },
+      addedMessages: '',
     };
     this.submit = this.submit.bind(this);
 
@@ -86,7 +87,15 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
           : '',
       });
       this.clearInputs();
+      this.showMessage();
     }
+  }
+
+  showMessage() {
+    this.setState({ addedMessages: 'User has been added' });
+    setTimeout(() => {
+      this.setState({ addedMessages: '' });
+    }, 3000);
   }
 
   clearInputs() {
@@ -148,6 +157,7 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
         <button type="submit" className="card__btn">
           Submit
         </button>
+        <span className="reg-form__message">{this.state.addedMessages}</span>
       </form>
     );
   }
