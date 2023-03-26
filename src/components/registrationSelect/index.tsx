@@ -30,7 +30,7 @@ export default class RegistrationSelect extends Component<IRegistrationSelectPro
             </option>
           ))}
         </select>
-        {!isValid && <div className="reg-select__error-message">{this.props.error}</div>}
+        <div className="reg-select__error-message">{!isValid ? this.props.error : ' '}</div>
       </div>
     );
   }

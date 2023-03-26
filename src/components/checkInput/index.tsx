@@ -22,7 +22,7 @@ export default class CheckInput extends Component<ICheckInputProps> {
           />
           {this.props.label}
         </label>
-        {!isValid && <div className="input__error-message">{this.props.error}</div>}
+        <div className="input__error-message">{!isValid ? this.props.error : ' '}</div>
       </div>
     );
   }

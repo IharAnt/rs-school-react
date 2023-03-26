@@ -31,7 +31,7 @@ export default class RadioSet extends Component<IRadioSetProps> {
             </label>
           );
         })}
-        {!isValid && <div className="radio-set__error-message">{this.props.error}</div>}
+        <div className="radio-set__error-message">{!isValid ? this.props.error : ' '}</div>
       </fieldset>
     );
   }

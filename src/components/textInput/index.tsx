@@ -20,7 +20,7 @@ export default class TextInput extends Component<ITextInputProps> {
           data-testid="text-input-element"
           role="text-input"
         />
-        {!isValid && <div className="input__error-message">{this.props.error}</div>}
+        <div className="input__error-message">{!isValid ? this.props.error : ' '}</div>
       </div>
     );
   }
