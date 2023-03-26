@@ -18,6 +18,7 @@ export default class CheckInput extends Component<ICheckInputProps> {
             className={`check-input ${!isValid ? 'input_error' : ''}`}
             ref={this.props.inputref}
             data-testid="check-input-element"
+            role="check-input"
           />
           {this.props.label}
         </label>

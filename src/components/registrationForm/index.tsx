@@ -91,14 +91,14 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
     }
   }
 
-  showMessage() {
+  private showMessage() {
     this.setState({ addedMessages: 'User has been added' });
     setTimeout(() => {
       this.setState({ addedMessages: '' });
     }, 3000);
   }
 
-  clearInputs() {
+  private clearInputs() {
     this.formRefs.form.current?.reset();
   }
 
@@ -154,7 +154,7 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
           inputref={this.formRefs.agree}
           error={this.state.inputErrors.agree}
         ></CheckInput> */}
-        <button type="submit" className="card__btn">
+        <button type="submit" className="card__btn" role="submit-btn">
           Submit
         </button>
         <span className="reg-form__message">{this.state.addedMessages}</span>
