@@ -13,7 +13,7 @@ export default class UsersCardList extends Component<IUsersCardListProps> {
     return (
       <div className="users-card-list">
         {this.props.userCards.map((card) => {
-          return <UserCard userCard={card} key={card.email}></UserCard>;
+          return <UserCard userCard={card} key={card.id}></UserCard>;
         })}
       </div>
     );

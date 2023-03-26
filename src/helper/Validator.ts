@@ -37,6 +37,13 @@ export default class Validator {
     return { isValid: true, error: '' };
   }
 
+  static validateFiles(files: FileList | null | undefined): IValid {
+    if (!files || files.length === 0) {
+      return { isValid: false, error: 'You should add image' };
+    }
+    return { isValid: true, error: '' };
+  }
+
   static validateAgree(isAgree?: boolean): IValid {
     if (!isAgree) {
       return { isValid: false, error: 'You should give agree to the processing of personal data' };

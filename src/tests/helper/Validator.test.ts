@@ -42,6 +42,10 @@ describe('Validator test', () => {
     expect(Validator.validateBirthday(10, goodDate).isValid).toEqual(true);
   });
 
+  it('validateFiles. empty file list should not retern valid data', () => {
+    expect(Validator.validateFiles(null).isValid).toEqual(false);
+  });
+
   it('validateAgree. checked should retern valid data', () => {
     expect(Validator.validateAgree(true).isValid).toEqual(true);
   });

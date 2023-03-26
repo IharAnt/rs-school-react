@@ -1,4 +1,5 @@
 export interface IUserCard {
+  id: string;
   email: string;
   userName: string;
   birthday: string;

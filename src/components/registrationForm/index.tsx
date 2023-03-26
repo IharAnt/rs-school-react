@@ -8,9 +8,11 @@ import { IRegistrationProps, IRegistrationState, IRegistrationStateError } from 
 
 export default class RegistrationForm extends Component<IRegistrationProps, IRegistrationState> {
   private formRefs: {
+    form: React.RefObject<HTMLFormElement>;
     userName: React.RefObject<HTMLInputElement>;
     email: React.RefObject<HTMLInputElement>;
     birthday: React.RefObject<HTMLInputElement>;
+    image: React.RefObject<HTMLInputElement>;
     agree: React.RefObject<HTMLInputElement>;
   };
 
@@ -21,15 +23,18 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
         email: '',
         userName: '',
         birthday: '',
+        image: '',
         agree: '',
       },
     };
     this.submit = this.submit.bind(this);
 
     this.formRefs = {
+      form: React.createRef(),
       email: React.createRef(),
       userName: React.createRef(),
       birthday: React.createRef(),
+      image: React.createRef(),
       agree: React.createRef(),
     };
   }
@@ -54,34 +59,43 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
       errors.birthday = validateResult.error;
       formIsValid = false;
     }
+    validateResult = Validator.validateFiles(this.formRefs.image.current?.files);
+    if (!validateResult.isValid) {
+      errors.image = validateResult.error;
+      formIsValid = false;
+    }
     validateResult = Validator.validateAgree(this.formRefs.agree.current?.checked);
     if (!validateResult.isValid) {
       errors.agree = validateResult.error;
       formIsValid = false;
     }
-    // errors.email = Validator.validateEmail(this.formRefs.email.current?.value).error;
-    // errors.userName = Validator.validateName(this.formRefs.userName.current?.value).error;
-    // errors.birthday = Validator.validateBirthday(10, this.formRefs.birthday.current?.value).error;
-    // errors.agree = Validator.validateAgree(this.formRefs.agree.current?.checked).error;
 
     this.setState({ inputErrors: errors });
 
     if (formIsValid) {
       this.props.addUserCard({
+        id: Math.random().toString(),
         email: this.formRefs.email.current?.value || '',
         userName: this.formRefs.userName.current?.value || '',
         birthday: this.formRefs.birthday.current?.value || '',
         agree: this.formRefs.agree.current?.checked || false,
         country: '',
         gender: 'male',
-        image: 'sdfsd',
+        image: this.formRefs.image.current?.files
+          ? URL.createObjectURL(this.formRefs.image.current?.files[0])
+          : '',
       });
+      this.clearInputs();
     }
+  }
+
+  clearInputs() {
+    this.formRefs.form.current?.reset();
   }
 
   render() {
     return (
-      <form className="reg-form" onSubmit={this.submit}>
+      <form className="reg-form" ref={this.formRefs.form} onSubmit={this.submit}>
         <TextInput
           label="Email:"
           id="email"
@@ -106,6 +120,15 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
           inputref={this.formRefs.birthday}
           error={this.state.inputErrors.birthday}
         ></TextInput>
+        <TextInput
+          label="Image:"
+          id="image"
+          name="image"
+          type="file"
+          accept="image/jpeg,image/png"
+          inputref={this.formRefs.image}
+          error={this.state.inputErrors.image}
+        ></TextInput>
         <CheckInput
           label="I give my agree to the processing of personal data"
           id="agree"
@@ -122,7 +145,7 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
           inputref={this.formRefs.agree}
           error={this.state.inputErrors.agree}
         ></CheckInput> */}
-        <button type="submit" className="btn">
+        <button type="submit" className="card__btn">
           Submit
         </button>
       </form>
