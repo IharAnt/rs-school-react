@@ -4,9 +4,9 @@ import Validator from '../../helper/Validator';
 import CheckInput from '../checkInput';
 import TextInput from '../textInput';
 import './style.scss';
-import { IRegistrationState, IRegistrationStateError } from './types';
+import { IRegistrationProps, IRegistrationState, IRegistrationStateError } from './types';
 
-export default class RegistrationForm extends Component<unknown, IRegistrationState> {
+export default class RegistrationForm extends Component<IRegistrationProps, IRegistrationState> {
   private formRefs: {
     userName: React.RefObject<HTMLInputElement>;
     email: React.RefObject<HTMLInputElement>;
@@ -14,7 +14,7 @@ export default class RegistrationForm extends Component<unknown, IRegistrationSt
     agree: React.RefObject<HTMLInputElement>;
   };
 
-  constructor(props: unknown) {
+  constructor(props: IRegistrationProps) {
     super(props);
     this.state = {
       inputErrors: {
@@ -44,6 +44,18 @@ export default class RegistrationForm extends Component<unknown, IRegistrationSt
     errors.agree = Validator.validateAgree(this.formRefs.agree.current?.checked).error;
 
     this.setState({ inputErrors: errors });
+
+    if (!Object.keys(errors).length) {
+      this.props.addUserCard({
+        email: this.formRefs.email.current?.value || '',
+        userName: this.formRefs.userName.current?.value || '',
+        birthday: this.formRefs.birthday.current?.value || '',
+        agree: this.formRefs.agree.current?.checked || false,
+        country: '',
+        gender: 'male',
+        image: 'sdfsd',
+      });
+    }
   }
 
   render() {
