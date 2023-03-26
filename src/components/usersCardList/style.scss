@@ -4,8 +4,10 @@
   flex-grow: 1;
   position: relative;
   row-gap: 10px;
+  column-gap: 10px;
   margin: 10px 0;
   padding: 5px 0;
+  justify-content: flex-start;
   @media (max-width: $tablet-width) {
     @include columns(32%);
   }

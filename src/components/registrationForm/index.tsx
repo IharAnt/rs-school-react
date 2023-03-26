@@ -37,15 +37,36 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
   submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const errors: IRegistrationStateError = {};
+    let formIsValid = true;
 
-    errors.email = Validator.validateEmail(this.formRefs.email.current?.value).error;
-    errors.userName = Validator.validateName(this.formRefs.userName.current?.value).error;
-    errors.birthday = Validator.validateBirthday(10, this.formRefs.birthday.current?.value).error;
-    errors.agree = Validator.validateAgree(this.formRefs.agree.current?.checked).error;
+    let validateResult = Validator.validateEmail(this.formRefs.email.current?.value);
+    if (!validateResult.isValid) {
+      errors.email = validateResult.error;
+      formIsValid = false;
+    }
+    validateResult = Validator.validateName(this.formRefs.userName.current?.value);
+    if (!validateResult.isValid) {
+      errors.userName = validateResult.error;
+      formIsValid = false;
+    }
+    validateResult = Validator.validateBirthday(10, this.formRefs.birthday.current?.value);
+    if (!validateResult.isValid) {
+      errors.birthday = validateResult.error;
+      formIsValid = false;
+    }
+    validateResult = Validator.validateAgree(this.formRefs.agree.current?.checked);
+    if (!validateResult.isValid) {
+      errors.agree = validateResult.error;
+      formIsValid = false;
+    }
+    // errors.email = Validator.validateEmail(this.formRefs.email.current?.value).error;
+    // errors.userName = Validator.validateName(this.formRefs.userName.current?.value).error;
+    // errors.birthday = Validator.validateBirthday(10, this.formRefs.birthday.current?.value).error;
+    // errors.agree = Validator.validateAgree(this.formRefs.agree.current?.checked).error;
 
     this.setState({ inputErrors: errors });
 
-    if (!Object.keys(errors).length) {
+    if (formIsValid) {
       this.props.addUserCard({
         email: this.formRefs.email.current?.value || '',
         userName: this.formRefs.userName.current?.value || '',
