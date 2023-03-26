@@ -51,6 +51,13 @@ export default class Validator {
     return { isValid: true, error: '' };
   }
 
+  static validateRadio(value?: string | null): IValid {
+    if (!value) {
+      return { isValid: false, error: 'Please, select gender' };
+    }
+    return { isValid: true, error: '' };
+  }
+
   static validateAgree(isAgree?: boolean): IValid {
     if (!isAgree) {
       return { isValid: false, error: 'You should give agree to the processing of personal data' };

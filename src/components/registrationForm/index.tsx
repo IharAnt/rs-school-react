@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import Validator from '../../helper/Validator';
 import CheckInput from '../checkInput';
+import RadioSet from '../radioSet';
 import RegistrationSelect from '../registrationSelect';
 import TextInput from '../textInput';
 import './style.scss';
@@ -15,6 +16,7 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
     birthday: React.RefObject<HTMLInputElement>;
     country: React.RefObject<HTMLSelectElement>;
     image: React.RefObject<HTMLInputElement>;
+    gender: React.RefObject<HTMLInputElement>[];
     agree: React.RefObject<HTMLInputElement>;
   };
 
@@ -27,6 +29,7 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
         birthday: '',
         country: '',
         image: '',
+        gender: '',
         agree: '',
       },
       addedMessages: '',
@@ -40,6 +43,7 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
       birthday: React.createRef(),
       country: React.createRef(),
       image: React.createRef(),
+      gender: [React.createRef(), React.createRef()],
       agree: React.createRef(),
     };
   }
@@ -79,6 +83,13 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
       errors.agree = validateResult.error;
       formIsValid = false;
     }
+    validateResult = Validator.validateRadio(
+      this.formRefs.gender.find((opt) => opt.current?.checked)?.current?.value
+    );
+    if (!validateResult.isValid) {
+      errors.gender = validateResult.error;
+      formIsValid = false;
+    }
 
     this.setState({ inputErrors: errors });
 
@@ -90,7 +101,7 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
         birthday: this.formRefs.birthday.current?.value || '',
         agree: this.formRefs.agree.current?.checked || false,
         country: this.formRefs.country.current?.selectedOptions[0].text || '',
-        gender: 'male',
+        gender: this.formRefs.gender.find((opt) => opt.current?.checked)?.current?.value || '',
         image: this.formRefs.image.current?.files
           ? URL.createObjectURL(this.formRefs.image.current?.files[0])
           : '',
@@ -113,7 +124,7 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
 
   render() {
     return (
-      <form className="reg-form" ref={this.formRefs.form} onSubmit={this.submit}>
+      <form className="reg-form" ref={this.formRefs.form} onSubmit={this.submit} noValidate>
         <TextInput
           label="Email:"
           id="email"
@@ -145,8 +156,11 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
           selectref={this.formRefs.country}
           error={this.state.inputErrors.country}
           values={[
-            { value: 'usa', content: 'USA' },
+            { value: 'belarus', content: 'Belarus' },
             { value: 'canada', content: 'Canada' },
+            { value: 'ukraine', content: 'Ukraine' },
+            { value: 'usa', content: 'USA' },
+            { value: 'russia', content: 'Russia' },
           ]}
         ></RegistrationSelect>
         <TextInput
@@ -158,6 +172,17 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
           inputref={this.formRefs.image}
           error={this.state.inputErrors.image}
         ></TextInput>
+        <RadioSet
+          label="Gender:"
+          id="gender"
+          name="gender"
+          error={this.state.inputErrors.gender}
+          inputref={this.formRefs.gender}
+          values={[
+            { value: 'male', content: 'Male' },
+            { value: 'female', content: 'Female' },
+          ]}
+        ></RadioSet>
         <CheckInput
           label="I give my agree to the processing of personal data"
           id="agree"
@@ -166,14 +191,6 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
           inputref={this.formRefs.agree}
           error={this.state.inputErrors.agree}
         ></CheckInput>
-        {/* <CheckInput
-          label="I give my agree to the processing of personal data"
-          id="agree"
-          name="agree"
-          type="radio"
-          inputref={this.formRefs.agree}
-          error={this.state.inputErrors.agree}
-        ></CheckInput> */}
         <button type="submit" className="card__btn" role="submit-btn">
           Submit
         </button>

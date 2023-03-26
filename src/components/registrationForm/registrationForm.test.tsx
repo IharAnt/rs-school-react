@@ -44,6 +44,11 @@ describe('Registration Form test', () => {
     });
     expect(agreeInput).toBeInTheDocument();
 
+    const genderInput = screen.getByRole<HTMLInputElement>('radio-set-role', {
+      name: /Female/i,
+    });
+    expect(genderInput).toBeInTheDocument();
+
     const submitButton = screen.getByRole<HTMLInputElement>('submit-btn');
     expect(submitButton).toBeInTheDocument();
 
@@ -73,6 +78,9 @@ describe('Registration Form test', () => {
 
     await user.click(agreeInput);
     expect(agreeInput.checked).toEqual(true);
+
+    await user.click(genderInput);
+    expect(genderInput.checked).toEqual(true);
 
     await user.click(submitButton);
     expect(addUserCardMock).toBeCalledTimes(1);

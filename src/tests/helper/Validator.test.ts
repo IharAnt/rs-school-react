@@ -60,6 +60,10 @@ describe('Validator test', () => {
     expect(Validator.validateAgree(true).isValid).toEqual(true);
   });
 
+  it('validateRadio. should retern valid data', () => {
+    expect(Validator.validateRadio('male').isValid).toEqual(true);
+  });
+
   it('validateAgree. unchecked should not retern valid data', () => {
     expect(Validator.validateAgree(false).isValid).toEqual(false);
   });
