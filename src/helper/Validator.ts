@@ -37,6 +37,13 @@ export default class Validator {
     return { isValid: true, error: '' };
   }
 
+  static validateSelect(value?: string): IValid {
+    if (!value || value === 'default') {
+      return { isValid: false, error: 'Please, select country' };
+    }
+    return { isValid: true, error: '' };
+  }
+
   static validateFiles(files: FileList | null | undefined): IValid {
     if (!files || files.length === 0) {
       return { isValid: false, error: 'You should add image' };

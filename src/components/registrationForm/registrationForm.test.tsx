@@ -29,6 +29,11 @@ describe('Registration Form test', () => {
     });
     expect(birthdayInput).toBeInTheDocument();
 
+    const countrySelect = screen.getByRole<HTMLSelectElement>('reg-select', {
+      name: /country/i,
+    });
+    expect(countrySelect).toBeInTheDocument();
+
     const imageInput = screen.getByRole<HTMLInputElement>('text-input', {
       name: /image/i,
     });
@@ -55,6 +60,13 @@ describe('Registration Form test', () => {
     await user.type(birthdayInput, date);
     expect(birthdayInput.value).toEqual(date);
 
+    const option = screen.getByRole<HTMLOptionElement>('option', {
+      name: /USA/i,
+    });
+    expect(option).toBeInTheDocument();
+    await user.selectOptions(countrySelect, option);
+    expect(option.selected).toBe(true);
+
     const file = new File(['file'], 'file.png', { type: 'image/png' });
     await user.upload(imageInput, file);
     expect(imageInput.files).toHaveLength(1);
@@ -63,7 +75,7 @@ describe('Registration Form test', () => {
     expect(agreeInput.checked).toEqual(true);
 
     await user.click(submitButton);
-    expect(addUserCardMock).toHaveBeenCalled;
+    expect(addUserCardMock).toBeCalledTimes(1);
   });
 
   it('Add card shoud not run', async () => {
@@ -87,6 +99,10 @@ describe('Registration Form test', () => {
       name: /birthday/i,
     });
     expect(birthdayInput).toBeInTheDocument();
+
+    const countrySelect = screen.getByRole<HTMLSelectElement>('reg-select', {
+      name: /country/i,
+    });
 
     const imageInput = screen.getByRole<HTMLInputElement>('text-input', {
       name: /image/i,
@@ -114,10 +130,12 @@ describe('Registration Form test', () => {
     await user.type(birthdayInput, date);
     expect(birthdayInput.value).toEqual(date);
 
+    await user.selectOptions(countrySelect, 'default');
+
     expect(imageInput.files).toHaveLength(0);
     expect(agreeInput.checked).toEqual(false);
 
     await user.click(submitButton);
-    expect(addUserCardMock).not.toHaveBeenCalled;
+    expect(addUserCardMock).not.toBeCalledTimes(1);
   });
 });

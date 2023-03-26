@@ -42,6 +42,16 @@ describe('Validator test', () => {
     expect(Validator.validateBirthday(10, goodDate).isValid).toEqual(true);
   });
 
+  it('validateSelect. select should not retern valid data', () => {
+    const badSelect = 'default';
+    expect(Validator.validateSelect(badSelect).isValid).toEqual(false);
+  });
+
+  it('validateBirthday. select should retern valid data', () => {
+    const goodSelect = 'usa';
+    expect(Validator.validateSelect(goodSelect).isValid).toEqual(true);
+  });
+
   it('validateFiles. empty file list should not retern valid data', () => {
     expect(Validator.validateFiles(null).isValid).toEqual(false);
   });

@@ -10,7 +10,6 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  box-sizing: border-box;
 }
 
 .wrapper {
@@ -18,4 +17,11 @@ body {
   margin: 0 auto;
   padding-left: 30px;
   padding-right: 30px;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import Validator from '../../helper/Validator';
 import CheckInput from '../checkInput';
+import RegistrationSelect from '../registrationSelect';
 import TextInput from '../textInput';
 import './style.scss';
 import { IRegistrationProps, IRegistrationState, IRegistrationStateError } from './types';
@@ -12,6 +13,7 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
     userName: React.RefObject<HTMLInputElement>;
     email: React.RefObject<HTMLInputElement>;
     birthday: React.RefObject<HTMLInputElement>;
+    country: React.RefObject<HTMLSelectElement>;
     image: React.RefObject<HTMLInputElement>;
     agree: React.RefObject<HTMLInputElement>;
   };
@@ -23,6 +25,7 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
         email: '',
         userName: '',
         birthday: '',
+        country: '',
         image: '',
         agree: '',
       },
@@ -35,6 +38,7 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
       email: React.createRef(),
       userName: React.createRef(),
       birthday: React.createRef(),
+      country: React.createRef(),
       image: React.createRef(),
       agree: React.createRef(),
     };
@@ -60,6 +64,11 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
       errors.birthday = validateResult.error;
       formIsValid = false;
     }
+    validateResult = Validator.validateSelect(this.formRefs.country.current?.value);
+    if (!validateResult.isValid) {
+      errors.country = validateResult.error;
+      formIsValid = false;
+    }
     validateResult = Validator.validateFiles(this.formRefs.image.current?.files);
     if (!validateResult.isValid) {
       errors.image = validateResult.error;
@@ -80,7 +89,7 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
         userName: this.formRefs.userName.current?.value || '',
         birthday: this.formRefs.birthday.current?.value || '',
         agree: this.formRefs.agree.current?.checked || false,
-        country: '',
+        country: this.formRefs.country.current?.selectedOptions[0].text || '',
         gender: 'male',
         image: this.formRefs.image.current?.files
           ? URL.createObjectURL(this.formRefs.image.current?.files[0])
@@ -129,6 +138,17 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
           inputref={this.formRefs.birthday}
           error={this.state.inputErrors.birthday}
         ></TextInput>
+        <RegistrationSelect
+          label="Country:"
+          id="country"
+          name="country"
+          selectref={this.formRefs.country}
+          error={this.state.inputErrors.country}
+          values={[
+            { value: 'usa', content: 'USA' },
+            { value: 'canada', content: 'Canada' },
+          ]}
+        ></RegistrationSelect>
         <TextInput
           label="Image:"
           id="image"
