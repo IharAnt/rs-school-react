@@ -1,36 +1,30 @@
+import { FC } from 'react';
 import Navigation from '../navigation';
-import React, { Component } from 'react';
 import './style.scss';
-import { NavProps, State } from './types';
+import { NavProps } from './types';
 
-export default class Header extends Component<NavProps, State> {
-  constructor(props: NavProps) {
-    super(props);
-    this.getActivePage = this.getActivePage.bind(this);
-    this.state = { activePage: '' };
-  }
-
-  getActivePage(): string {
-    if (this.props.location.pathname === '/main') {
+const Header: FC<NavProps> = (props) => {
+  const getActivePage = (): string => {
+    if (props.location.pathname === '/main') {
       return 'Main Page';
     }
-    if (this.props.location.pathname === '/about') {
+    if (props.location.pathname === '/about') {
       return 'About Us';
     }
-    if (this.props.location.pathname === '/form') {
+    if (props.location.pathname === '/form') {
       return 'Form Page';
     }
     return '404';
-  }
+  };
 
-  render() {
-    return (
-      <header className="header">
-        <div className="wrapper header__wrapper">
-          <Navigation />
-          <div className="header__page">{this.getActivePage()}</div>
-        </div>
-      </header>
-    );
-  }
-}
+  return (
+    <header className="header">
+      <div className="wrapper header__wrapper">
+        <Navigation />
+        <div className="header__page">{getActivePage()}</div>
+      </div>
+    </header>
+  );
+};
+
+export default Header;

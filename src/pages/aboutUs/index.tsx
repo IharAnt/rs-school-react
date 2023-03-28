@@ -1,12 +1,12 @@
-import { Component } from 'react';
+import { FC } from 'react';
 import './style.scss';
 
-export default class AboutUs extends Component {
-  render() {
-    return (
-      <div className="wrapper">
-        <h1>About Us page</h1>
-      </div>
-    );
-  }
-}
+const AboutUs: FC = () => {
+  return (
+    <div className="wrapper">
+      <h1>About Us page</h1>
+    </div>
+  );
+};
+
+export default AboutUs;

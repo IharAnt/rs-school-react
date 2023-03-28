@@ -95,7 +95,7 @@ export default class RegistrationForm extends Component<IRegistrationProps, IReg
 
     if (formIsValid) {
       this.props.addUserCard({
-        id: Math.random().toString(),
+        id: Date.now().toString(),
         email: this.formRefs.email.current?.value || '',
         userName: this.formRefs.userName.current?.value || '',
         birthday: this.formRefs.birthday.current?.value || '',
