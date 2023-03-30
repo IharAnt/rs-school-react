@@ -30,7 +30,7 @@ const Card: FC<ICardProps> = ({ product }) => {
       </div>
       <div className="card__price-vitrine">
         <span className="card__price-amount card-text">
-          <b>$549</b>
+          <b>${product.price} </b>
         </span>
         <button className="card__btn btn btn-success" type="button">
           Add to cart
