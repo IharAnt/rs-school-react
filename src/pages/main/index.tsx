@@ -13,7 +13,6 @@ const Main: FC = () => {
   }, [search]);
 
   useEffect(() => {
-    console.log('unmaunt');
     return () => {
       localStorage.setItem('searchValue', searchRef.current ?? '');
     };
