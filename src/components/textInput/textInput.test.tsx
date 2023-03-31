@@ -6,15 +6,14 @@ import userEvent from '@testing-library/user-event';
 import { IFormInputs } from '../registrationForm/types';
 import { useForm } from 'react-hook-form';
 
-const { result } = renderHook(() =>
-  useForm<IFormInputs>({
-    mode: 'onSubmit',
-    reValidateMode: 'onSubmit',
-  })
-);
-
 describe('Text input test', () => {
   it('Input value', async () => {
+    const { result } = renderHook(() =>
+      useForm<IFormInputs>({
+        mode: 'onSubmit',
+        reValidateMode: 'onSubmit',
+      })
+    );
     const testValue = Math.random();
     const {
       register,

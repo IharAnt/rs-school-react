@@ -1,22 +1,35 @@
 import { describe, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, renderHook, screen } from '@testing-library/react';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import RegistrationSelect from '.';
+import { IRegistrationSelectProps } from './types';
+import { useForm } from 'react-hook-form';
 
 describe('Registration select test', () => {
   it('select option', async () => {
-    const testRef = React.createRef<HTMLSelectElement>();
+    const { result } = renderHook(() =>
+      useForm<IRegistrationSelectProps>({
+        mode: 'onSubmit',
+        reValidateMode: 'onSubmit',
+      })
+    );
+    const {
+      register,
+      formState: { errors },
+    } = result.current;
     render(
       <RegistrationSelect
         label="Country:"
         id="country"
-        selectref={testRef}
-        error="Error select message"
         values={[
           { value: 'usa', content: 'USA' },
           { value: 'canada', content: 'Canada' },
         ]}
+        useRegister={register('country', {
+          validate: (country) => !country || country !== 'default' || 'Please, select country',
+        })}
+        error={errors.country}
       ></RegistrationSelect>
     );
     const select = screen.getByTestId<HTMLSelectElement>('reg-select-element');

@@ -18,4 +18,5 @@ export interface IFormInputs {
   userName: string;
   birthday: string;
   image: FileList;
+  country: string;
 }

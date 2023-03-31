@@ -35,7 +35,7 @@ const RegistrationForm: FC<IRegistrationProps> = ({ addUserCard }) => {
         userName: data.userName || '',
         birthday: data.birthday || '',
         agree: false || false,
-        country: '' || '',
+        country: data.country || '',
         gender: 'this.formRefs.gender.find((opt) => opt.current?.checked)?.current?.value' || '',
         image: data.image[0] ? URL.createObjectURL(data.image[0]) : '',
       });
@@ -109,6 +109,21 @@ const RegistrationForm: FC<IRegistrationProps> = ({ addUserCard }) => {
         })}
         error={errors.birthday}
       ></TextInput>
+      <RegistrationSelect
+        label="Country:"
+        id="country"
+        values={[
+          { value: 'Belarus', content: 'Belarus' },
+          { value: 'Canada', content: 'Canada' },
+          { value: 'Ukraine', content: 'Ukraine' },
+          { value: 'USA', content: 'USA' },
+          { value: 'Russia', content: 'Russia' },
+        ]}
+        useRegister={register('country', {
+          validate: (country) => !country || country !== 'default' || 'Please, select country',
+        })}
+        error={errors.country}
+      ></RegistrationSelect>
       <TextInput
         label="Image:"
         id="image"
