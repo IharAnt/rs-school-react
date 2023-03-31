@@ -12,3 +12,10 @@ export interface IRegistrationState {
 export interface IRegistrationStateError {
   [key: string]: string;
 }
+
+export interface IFormInputs {
+  email: string;
+  userName: string;
+  birthday: string;
+  image: FileList;
+}

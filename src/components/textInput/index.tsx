@@ -1,27 +1,21 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { FC } from 'react';
 import './style.scss';
 import { ITextInputProps } from './types';
 
-export default class TextInput extends Component<ITextInputProps> {
-  constructor(props: ITextInputProps) {
-    super(props);
-  }
+const TextInput: FC<ITextInputProps> = ({ id, label, useRegister, error, ...props }) => {
+  return (
+    <div className="input-wrapper">
+      <label htmlFor={id}>{label}</label>
+      <input
+        className={`text-input ${error ? 'input_error' : ''}`}
+        {...props}
+        {...useRegister}
+        data-testid="text-input-element"
+        role="text-input"
+      />
+      <div className="input__error-message">{error ? error.message : ' '}</div>
+    </div>
+  );
+};
 
-  render() {
-    const isValid = !!!this.props.error;
-    return (
-      <div className="input-wrapper">
-        <label htmlFor={this.props.id}>{this.props.label}</label>
-        <input
-          {...this.props}
-          className={`text-input ${!isValid ? 'input_error' : ''}`}
-          ref={this.props.inputref}
-          data-testid="text-input-element"
-          role="text-input"
-        />
-        <div className="input__error-message">{!isValid ? this.props.error : ' '}</div>
-      </div>
-    );
-  }
-}
+export default TextInput;

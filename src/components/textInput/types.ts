@@ -1,7 +1,8 @@
 import { InputHTMLAttributes } from 'react';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 export interface ITextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  error: string;
-  inputref: React.RefObject<HTMLInputElement>;
+  useRegister: UseFormRegisterReturn;
+  error: FieldError | undefined;
 }

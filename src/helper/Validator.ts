@@ -37,6 +37,10 @@ export default class Validator {
     return { isValid: true, error: '' };
   }
 
+  static validateBirthdayForHookForm(noValidYears: number, date?: string): boolean {
+    return Validator.validateBirthday(noValidYears, date).isValid;
+  }
+
   static validateSelect(value?: string): IValid {
     if (!value || value === 'default') {
       return { isValid: false, error: 'Please, select country' };
