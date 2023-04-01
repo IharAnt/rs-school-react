@@ -1,30 +1,23 @@
-import { Component } from 'react';
+import { FC, useState } from 'react';
 import RegistrationForm from '../../components/registrationForm';
 import UsersCardList from '../../components/usersCardList';
 import { IUserCard } from '../../types/interfaces/IUserCard';
 import './style.scss';
-import { IFopmPageState } from './types';
+//IFopmPageState
+const FormPage: FC = () => {
+  const [cards, setCards] = useState<IUserCard[]>([]);
 
-export default class FormPage extends Component<unknown, IFopmPageState> {
-  constructor(props: unknown) {
-    super(props);
-    this.state = {
-      cards: [],
-    };
-    this.addUserCard = this.addUserCard.bind(this);
-  }
+  const addUserCard = (card: IUserCard) => {
+    setCards([...cards, card]);
+  };
 
-  addUserCard(card: IUserCard) {
-    this.setState({ cards: [...this.state.cards, card] });
-  }
+  return (
+    <div className="wrapper">
+      <h1>Form page</h1>
+      <RegistrationForm addUserCard={addUserCard}></RegistrationForm>
+      <UsersCardList userCards={cards}></UsersCardList>
+    </div>
+  );
+};
 
-  render() {
-    return (
-      <div className="wrapper">
-        <h1>Form page</h1>
-        <RegistrationForm addUserCard={this.addUserCard}></RegistrationForm>
-        <UsersCardList userCards={this.state.cards}></UsersCardList>
-      </div>
-    );
-  }
-}
+export default FormPage;

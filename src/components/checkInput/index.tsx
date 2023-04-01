@@ -1,29 +1,23 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { FC } from 'react';
 import './style.scss';
 import { ICheckInputProps } from './types';
 
-export default class CheckInput extends Component<ICheckInputProps> {
-  constructor(props: ICheckInputProps) {
-    super(props);
-  }
+const CheckInput: FC<ICheckInputProps> = ({ id, label, formRegister, error, ...props }) => {
+  return (
+    <div className="check-input-wrapper">
+      <label htmlFor={id}>
+        <input
+          className={`check-input ${error ? 'input_error' : ''}`}
+          {...props}
+          {...formRegister}
+          data-testid="check-input-element"
+          role="check-input"
+        />
+        {label}
+      </label>
+      <div className="input__error-message">{error ? error.message : ' '}</div>
+    </div>
+  );
+};
 
-  render() {
-    const isValid = !!!this.props.error;
-    return (
-      <div className="check-input-wrapper">
-        <label htmlFor={this.props.id}>
-          <input
-            {...this.props}
-            className={`check-input ${!isValid ? 'input_error' : ''}`}
-            ref={this.props.inputref}
-            data-testid="check-input-element"
-            role="check-input"
-          />
-          {this.props.label}
-        </label>
-        <div className="input__error-message">{!isValid ? this.props.error : ' '}</div>
-      </div>
-    );
-  }
-}
+export default CheckInput;

@@ -9,22 +9,18 @@ import FormPage from './pages/formPage';
 
 const HeaderWithRouter = withRouter(Header);
 
-class App extends React.Component {
-  state = { count: 0 };
-
-  render(): React.ReactNode {
-    return (
-      <>
-        <HeaderWithRouter />
-        <Routes>
-          <Route path="/" element={<Navigate to="/main" replace />} />
-          <Route path="/main" element={<Main />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/form" element={<FormPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </>
-    );
-  }
-}
+const App = () => {
+  return (
+    <>
+      <HeaderWithRouter />
+      <Routes>
+        <Route path="/" element={<Navigate to="/main" replace />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/form" element={<FormPage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
+  );
+};
 export default App;

@@ -1,10 +1,11 @@
 import { InputHTMLAttributes } from 'react';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 export interface IRegistrationSelectProps extends InputHTMLAttributes<HTMLSelectElement> {
   label: string;
-  error: string;
   values: ISelectOptions[];
-  selectref: React.RefObject<HTMLSelectElement>;
+  formRegister: UseFormRegisterReturn;
+  error: FieldError | undefined;
 }
 
 export interface ISelectOptions {

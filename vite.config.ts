@@ -31,6 +31,8 @@ export default defineConfig({
         '**/types.ts',
         '**/types/interfaces/',
         '**/*.d.ts',
+        '**/*.test.tsx',
+        '**/*.test.ts',
         'src//main.tsx',
       ],
     },
