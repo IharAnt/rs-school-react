@@ -139,7 +139,6 @@ const RegistrationForm: FC<IRegistrationProps> = ({ addUserCard }) => {
       ></TextInput>
       <RadioSet
         label="Gender:"
-        id="gender"
         values={[
           { value: 'male', content: 'Male' },
           { value: 'female', content: 'Female' },
