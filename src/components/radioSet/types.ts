@@ -1,10 +1,11 @@
 import { InputHTMLAttributes } from 'react';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 export interface IRadioSetProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  error: string;
   values: IRadioOptions[];
-  inputref: React.RefObject<HTMLInputElement>[];
+  formRegister: UseFormRegisterReturn;
+  error: FieldError | undefined;
 }
 
 export interface IRadioOptions {

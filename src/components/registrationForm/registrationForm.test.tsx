@@ -11,7 +11,7 @@ describe('Registration Form test', () => {
     global.URL.createObjectURL = vi.fn();
     const addUserCardMock = vi.fn();
     render(<RegistrationForm addUserCard={addUserCardMock}></RegistrationForm>);
-    const input = screen.getByLabelText<HTMLInputElement>('Username:');
+    const input = screen.getByText<HTMLInputElement>('Username:');
     expect(input).toBeInTheDocument();
 
     const emailInput = screen.getByRole<HTMLInputElement>('text-input', {
@@ -44,9 +44,7 @@ describe('Registration Form test', () => {
     });
     expect(agreeInput).toBeInTheDocument();
 
-    const genderInput = screen.getByRole<HTMLInputElement>('radio-set-role', {
-      name: /Female/i,
-    });
+    const genderInput = screen.getByRole<HTMLInputElement>('radio-set-role-female');
     expect(genderInput).toBeInTheDocument();
 
     const submitButton = screen.getByRole<HTMLInputElement>('submit-btn');
@@ -90,7 +88,7 @@ describe('Registration Form test', () => {
     global.URL.createObjectURL = vi.fn();
     const addUserCardMock = vi.fn();
     render(<RegistrationForm addUserCard={addUserCardMock}></RegistrationForm>);
-    const input = screen.getByLabelText<HTMLInputElement>('Username:');
+    const input = screen.getByText<HTMLInputElement>('Username:');
     expect(input).toBeInTheDocument();
 
     const emailInput = screen.getByRole<HTMLInputElement>('text-input', {

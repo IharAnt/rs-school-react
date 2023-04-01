@@ -26,7 +26,7 @@ describe('Registration select test', () => {
           { value: 'usa', content: 'USA' },
           { value: 'canada', content: 'Canada' },
         ]}
-        useRegister={register('country', {
+        formRegister={register('country', {
           validate: (country) => !country || country !== 'default' || 'Please, select country',
         })}
         error={errors.country}

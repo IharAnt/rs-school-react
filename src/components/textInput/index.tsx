@@ -2,14 +2,14 @@ import React, { FC } from 'react';
 import './style.scss';
 import { ITextInputProps } from './types';
 
-const TextInput: FC<ITextInputProps> = ({ id, label, useRegister, error, ...props }) => {
+const TextInput: FC<ITextInputProps> = ({ id, label, formRegister, error, ...props }) => {
   return (
     <div className="input-wrapper">
       <label htmlFor={id}>{label}</label>
       <input
         className={`text-input ${error ? 'input_error' : ''}`}
         {...props}
-        {...useRegister}
+        {...formRegister}
         data-testid="text-input-element"
         role="text-input"
       />

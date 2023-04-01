@@ -4,7 +4,7 @@ import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 export interface IRegistrationSelectProps extends InputHTMLAttributes<HTMLSelectElement> {
   label: string;
   values: ISelectOptions[];
-  useRegister: UseFormRegisterReturn;
+  formRegister: UseFormRegisterReturn;
   error: FieldError | undefined;
 }
 

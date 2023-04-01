@@ -19,4 +19,6 @@ export interface IFormInputs {
   birthday: string;
   image: FileList;
   country: string;
+  agree: boolean;
+  gender: string;
 }

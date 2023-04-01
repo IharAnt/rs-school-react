@@ -24,7 +24,7 @@ describe('Text input test', () => {
         label="Email:"
         id="email"
         type="email"
-        useRegister={register('email', {
+        formRegister={register('email', {
           required: {
             value: true,
             message: 'Please enter your email',

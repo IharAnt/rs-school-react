@@ -1,24 +1,19 @@
 import React, { FC, useState } from 'react';
-import { Component } from 'react';
 import Validator from '../../helper/Validator';
 import CheckInput from '../checkInput';
 import RadioSet from '../radioSet';
 import RegistrationSelect from '../registrationSelect';
 import TextInput from '../textInput';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import './style.scss';
-import {
-  IFormInputs,
-  IRegistrationProps,
-  IRegistrationState,
-  IRegistrationStateError,
-} from './types';
+import { IFormInputs, IRegistrationProps } from './types';
 
 const RegistrationForm: FC<IRegistrationProps> = ({ addUserCard }) => {
   const [addedMessages, setAddedMessages] = useState('');
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<IFormInputs>({
     mode: 'onSubmit',
@@ -34,9 +29,9 @@ const RegistrationForm: FC<IRegistrationProps> = ({ addUserCard }) => {
         email: data.email || '',
         userName: data.userName || '',
         birthday: data.birthday || '',
-        agree: false || false,
+        agree: data.agree || false,
         country: data.country || '',
-        gender: 'this.formRefs.gender.find((opt) => opt.current?.checked)?.current?.value' || '',
+        gender: data.gender || '',
         image: data.image[0] ? URL.createObjectURL(data.image[0]) : '',
       });
       clearInputs();
@@ -52,7 +47,7 @@ const RegistrationForm: FC<IRegistrationProps> = ({ addUserCard }) => {
   };
 
   const clearInputs = () => {
-    // this.formRefs.form.current?.reset();
+    reset();
   };
 
   return (
@@ -61,7 +56,8 @@ const RegistrationForm: FC<IRegistrationProps> = ({ addUserCard }) => {
         label="Email:"
         id="email"
         type="email"
-        useRegister={register('email', {
+        aria-label="email"
+        formRegister={register('email', {
           required: {
             value: true,
             message: 'Please enter your email',
@@ -78,7 +74,8 @@ const RegistrationForm: FC<IRegistrationProps> = ({ addUserCard }) => {
         label="Username:"
         id="userName"
         type="text"
-        useRegister={register('userName', {
+        aria-label="userName"
+        formRegister={register('userName', {
           required: {
             value: true,
             message: 'Please enter your Username',
@@ -98,7 +95,8 @@ const RegistrationForm: FC<IRegistrationProps> = ({ addUserCard }) => {
         label="Birthday:"
         id="birthday"
         type="date"
-        useRegister={register('birthday', {
+        aria-label="birthday"
+        formRegister={register('birthday', {
           required: {
             value: true,
             message: 'Please enter your Birthday',
@@ -112,6 +110,7 @@ const RegistrationForm: FC<IRegistrationProps> = ({ addUserCard }) => {
       <RegistrationSelect
         label="Country:"
         id="country"
+        aria-label="country"
         values={[
           { value: 'Belarus', content: 'Belarus' },
           { value: 'Canada', content: 'Canada' },
@@ -119,7 +118,7 @@ const RegistrationForm: FC<IRegistrationProps> = ({ addUserCard }) => {
           { value: 'USA', content: 'USA' },
           { value: 'Russia', content: 'Russia' },
         ]}
-        useRegister={register('country', {
+        formRegister={register('country', {
           validate: (country) => !country || country !== 'default' || 'Please, select country',
         })}
         error={errors.country}
@@ -128,8 +127,9 @@ const RegistrationForm: FC<IRegistrationProps> = ({ addUserCard }) => {
         label="Image:"
         id="image"
         type="file"
+        aria-label="image"
         accept="image/jpeg,image/png"
-        useRegister={register('image', {
+        formRegister={register('image', {
           required: {
             value: true,
             message: 'You should add image',
@@ -137,6 +137,34 @@ const RegistrationForm: FC<IRegistrationProps> = ({ addUserCard }) => {
         })}
         error={errors.image}
       ></TextInput>
+      <RadioSet
+        label="Gender:"
+        id="gender"
+        values={[
+          { value: 'male', content: 'Male' },
+          { value: 'female', content: 'Female' },
+        ]}
+        formRegister={register('gender', {
+          required: {
+            value: true,
+            message: 'Please, select gender',
+          },
+        })}
+        error={errors.gender}
+      ></RadioSet>
+      <CheckInput
+        label="I give my agree to the processing of personal data"
+        id="agree"
+        type="checkbox"
+        aria-label="agree"
+        formRegister={register('agree', {
+          required: {
+            value: true,
+            message: 'You should give agree to the processing of personal data',
+          },
+        })}
+        error={errors.agree}
+      ></CheckInput>
       <button type="submit" className="card__btn" role="submit-btn">
         Submit
       </button>

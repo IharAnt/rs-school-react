@@ -3,6 +3,6 @@ import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 export interface ITextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  useRegister: UseFormRegisterReturn;
+  formRegister: UseFormRegisterReturn;
   error: FieldError | undefined;
 }

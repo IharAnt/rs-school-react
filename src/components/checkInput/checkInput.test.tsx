@@ -1,19 +1,35 @@
 import { describe, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, renderHook, screen } from '@testing-library/react';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import CheckInput from '.';
+import { useForm } from 'react-hook-form';
+import { ICheckInputProps } from './types';
 
 describe('Text input test', () => {
   it('Input value', async () => {
-    const testRef = React.createRef<HTMLInputElement>();
+    const { result } = renderHook(() =>
+      useForm<ICheckInputProps>({
+        mode: 'onSubmit',
+        reValidateMode: 'onSubmit',
+      })
+    );
+    const {
+      register,
+      formState: { errors },
+    } = result.current;
     render(
       <CheckInput
-        label="Email:"
+        label="I give my agree to the processing of personal data"
         id="agree"
         type="checkbox"
-        inputref={testRef}
-        error="Error checkbox message"
+        formRegister={register('agree', {
+          required: {
+            value: true,
+            message: 'You should give agree to the processing of personal data',
+          },
+        })}
+        error={errors.agree}
       ></CheckInput>
     );
     const input = screen.getByTestId<HTMLInputElement>('check-input-element');
@@ -24,6 +40,5 @@ describe('Text input test', () => {
     await user.click(input);
 
     expect(input.checked).toEqual(true);
-    expect(input.checked).toEqual(testRef.current?.checked);
   });
 });

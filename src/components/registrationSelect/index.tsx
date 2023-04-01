@@ -6,7 +6,7 @@ const RegistrationSelect: FC<IRegistrationSelectProps> = ({
   id,
   label,
   values,
-  useRegister,
+  formRegister,
   error,
   ...props
 }) => {
@@ -17,7 +17,7 @@ const RegistrationSelect: FC<IRegistrationSelectProps> = ({
         className={`reg-select ${error ? 'reg-select_error' : ''}`}
         defaultValue="default"
         {...props}
-        {...useRegister}
+        {...formRegister}
         data-testid="reg-select-element"
         role="reg-select"
       >
