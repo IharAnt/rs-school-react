@@ -10,25 +10,15 @@ describe('ProductService test', () => {
     vi.clearAllMocks();
   });
 
-  it('SearchProducts should retern 5 products', async () => {
-    const repsonse = await productService.searchProducts(0, 5, '');
-    expect(repsonse.products.length).toEqual(5);
-  });
-
-  it('SearchProducts should retern products for search value samsung', async () => {
-    const repsonse = await productService.searchProducts(0, 30, 'samsung');
-    expect(repsonse.products.length > 0).toBeTruthy();
-    expect(repsonse.products[0].brand).toEqual('Samsung');
-  });
-
   it('SearchProducts should retern 5 fake products', async () => {
     apiClient.get = vi.fn().mockReturnValueOnce({ data: fakesearchResponse });
 
     const repsonse = await productService.searchProducts(0, 5, '');
     expect(repsonse.products.length).toEqual(5);
+    expect(repsonse.products[0].brand).toEqual('Apple');
   });
 
-  it('SearchProducts should retern 5 fake products', async () => {
+  it('SearchProducts should retern fake product', async () => {
     apiClient.get = vi.fn().mockReturnValueOnce({ data: fakeProduct });
 
     const repsonse = await productService.getProduct(66);
