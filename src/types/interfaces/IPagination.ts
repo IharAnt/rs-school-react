@@ -1,5 +1,5 @@
 export interface IPaginationResponse<T> extends IPaginationData {
-  items: T[];
+  products: T[];
 }
 
 export interface IPaginationData {

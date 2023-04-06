@@ -8,7 +8,7 @@ class ProductsService {
 
   async searchProducts(
     skip: number,
-    limit = 30,
+    limit = 100,
     search = ''
   ): Promise<IPaginationResponse<IProduct>> {
     const query = generateQuery({
