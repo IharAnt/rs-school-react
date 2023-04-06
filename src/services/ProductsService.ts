@@ -4,7 +4,7 @@ import { IProduct } from '../types/interfaces/IProduct';
 import apiClient from './ApiClient';
 
 class ProductsService {
-  searchPath = `/search`;
+  searchPath = `/search1`;
 
   async searchProducts(
     skip: number,

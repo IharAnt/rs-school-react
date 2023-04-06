@@ -5,12 +5,15 @@ import SearchInput from '../../components/searchInput';
 import { productService } from '../../services/ProductsService';
 import { AxiosError } from 'axios';
 import { IProduct } from '../../types/interfaces/IProduct';
+import ProgressSpinner from '../../components/progressSpinner';
 
 const Main: FC = () => {
   const [searchValue, setSearch] = useState<string>(
     () => localStorage.getItem('searchValue') ?? ''
   );
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const searchRef = useRef<string>();
 
@@ -27,16 +30,20 @@ const Main: FC = () => {
 
   const search = async (value: string): Promise<void> => {
     try {
+      setErrorMessage('');
+      setIsLoading(true);
       const repsonse = await productService.searchProducts(0, 30, value);
       setProducts(repsonse.products);
     } catch (error) {
       if (error instanceof AxiosError) {
-        // setErrorMessage(error.response?.data.message || error.message);
+        setErrorMessage(error.response?.data.message || error.message);
       } else if (error instanceof Error) {
-        // setErrorMessage(error.message);
+        setErrorMessage(error.message);
       } else {
-        // setErrorMessage('Unknown error');
+        setErrorMessage('Unknown error');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -55,7 +62,9 @@ const Main: FC = () => {
         placeholder="Search..."
         aria-label="Small"
       ></SearchInput>
-      <CardList products={products}></CardList>
+      <ProgressSpinner isShow={isLoading} />
+      {!isLoading && !errorMessage && <CardList products={products}></CardList>}
+      {errorMessage && <div>{errorMessage}</div>}
     </div>
   );
 };
