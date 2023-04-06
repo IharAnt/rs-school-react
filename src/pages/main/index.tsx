@@ -6,6 +6,7 @@ import { productService } from '../../services/ProductsService';
 import { AxiosError } from 'axios';
 import { IProduct } from '../../types/interfaces/IProduct';
 import ProgressSpinner from '../../components/progressSpinner';
+import Message from '../../components/message';
 
 const Main: FC = () => {
   const [searchValue, setSearch] = useState<string>(
@@ -33,6 +34,7 @@ const Main: FC = () => {
       setErrorMessage('');
       setIsLoading(true);
       const repsonse = await productService.searchProducts(0, 30, value);
+      console.log(repsonse);
       setProducts(repsonse.products);
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -63,8 +65,15 @@ const Main: FC = () => {
         aria-label="Small"
       ></SearchInput>
       <ProgressSpinner isShow={isLoading} />
-      {!isLoading && !errorMessage && <CardList products={products}></CardList>}
-      {errorMessage && <div>{errorMessage}</div>}
+      {!isLoading && products?.length > 0 && <CardList products={products}></CardList>}
+      {!isLoading && products?.length === 0 && !errorMessage && (
+        <Message className="products-message">Products not found</Message>
+      )}
+      {errorMessage && (
+        <Message className="products-message" isError={true}>
+          {errorMessage}
+        </Message>
+      )}
     </div>
   );
 };

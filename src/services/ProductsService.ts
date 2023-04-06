@@ -4,7 +4,8 @@ import { IProduct } from '../types/interfaces/IProduct';
 import apiClient from './ApiClient';
 
 class ProductsService {
-  searchPath = `/search1`;
+  searchPath = `/search`;
+  productPath = `/products/`;
 
   async searchProducts(
     skip: number,
@@ -19,6 +20,11 @@ class ProductsService {
     const response = await apiClient.get<IPaginationResponse<IProduct>>(
       `${this.searchPath}${query}`
     );
+    return response.data;
+  }
+
+  async getProduct(id: number): Promise<IProduct> {
+    const response = await apiClient.get<IProduct>(`${this.productPath}${id}`);
     return response.data;
   }
 }
