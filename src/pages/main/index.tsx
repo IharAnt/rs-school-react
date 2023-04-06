@@ -34,7 +34,6 @@ const Main: FC = () => {
       setErrorMessage('');
       setIsLoading(true);
       const repsonse = await productService.searchProducts(0, 30, value);
-      console.log(repsonse);
       setProducts(repsonse.products);
     } catch (error) {
       if (error instanceof AxiosError) {

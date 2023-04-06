@@ -11,8 +11,8 @@ const SearchInput: FC<IInputProps> = ({ name, label, search, pressEnter, ...prop
   return (
     <div className="search-wrapper">
       <label htmlFor={name}>{label}</label>
-      <input onKeyDown={handleKeyDown} id={name} {...props}></input>
-      <button onClick={() => search()} className="search__btn btn btn-success">
+      <input onKeyDown={handleKeyDown} id={name} {...props} role="search-input"></input>
+      <button onClick={() => search()} className="search__btn btn btn-success" role="search-button">
         Search
       </button>
     </div>
