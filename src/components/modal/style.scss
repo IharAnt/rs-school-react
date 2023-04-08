@@ -1,0 +1,44 @@
+.modal-overlay {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content__wrapper {
+  position: absolute;
+  width: 60%;
+  min-width: 300px;
+  box-shadow: 0px 6px 6px rgb(58 58 68 / 24%);
+  background-color: white;
+  border-radius: 0.2rem;
+}
+
+.modal-content {
+  // padding: 1rem;
+  border-radius: 0.2rem;
+}
+
+.modal__close {
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  background-image: url('../../assets/img/resetInput.png');
+  background-size: cover;
+  cursor: pointer;
+  top: 5px;
+  right: 6px;
+  transition: all 0.5s ease;
+  z-index: 1;
+  &:hover {
+    transform: rotate(360deg);
+  }
+}

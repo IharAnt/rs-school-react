@@ -38,7 +38,7 @@ describe('Main page test', () => {
     expect(screen.getByText(/Main page/i)).toBeInTheDocument();
   });
 
-  it('Error when error from Api', async () => {
+  it('Error from Api', async () => {
     server.use(
       rest.get(`${appConfig.apiUrl}/search`, (_, res, ctx) => {
         return res(ctx.status(400, 'Bad request'));

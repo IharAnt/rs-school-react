@@ -20,6 +20,7 @@ const Main: FC = () => {
 
   useEffect(() => {
     searchRef.current = searchValue;
+    localStorage.setItem('searchValue', searchRef.current ?? '');
   }, [searchValue]);
 
   useEffect(() => {
@@ -63,7 +64,6 @@ const Main: FC = () => {
         placeholder="Search..."
         aria-label="Small"
       ></SearchInput>
-      <ProgressSpinner isShow={isLoading} />
       {!isLoading && products?.length > 0 && <CardList products={products}></CardList>}
       {!isLoading && products?.length === 0 && !errorMessage && (
         <Message className="products-message">Products not found</Message>
@@ -73,6 +73,7 @@ const Main: FC = () => {
           {errorMessage}
         </Message>
       )}
+      <ProgressSpinner isShow={isLoading} />
     </div>
   );
 };
