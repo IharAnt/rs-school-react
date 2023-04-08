@@ -22,6 +22,7 @@ const CardList: FC<ICardListProps> = ({ products }) => {
 
   const clickCard = async (productId: number) => {
     try {
+      setErrorMessage('');
       setIsLoading(true);
       const product = await productService.getProduct(productId);
       seProduct(product);
