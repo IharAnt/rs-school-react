@@ -2,11 +2,23 @@ import React, { FC } from 'react';
 import './style.scss';
 import { IInputProps } from './types';
 
-const SearchInput: FC<IInputProps> = ({ name, label, ...props }) => {
+const SearchInput: FC<IInputProps> = ({ name, label, searchClick, pressEnter, ...props }) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      pressEnter();
+    }
+  };
   return (
     <div className="search-wrapper">
       <label htmlFor={name}>{label}</label>
-      <input id={name} {...props}></input>
+      <input onKeyDown={handleKeyDown} id={name} {...props} role="search-input"></input>
+      <button
+        onClick={() => searchClick()}
+        className="search__btn btn btn-success"
+        role="search-button"
+      >
+        Search
+      </button>
     </div>
   );
 };
