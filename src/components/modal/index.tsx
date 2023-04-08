@@ -8,7 +8,12 @@ const Modal: FC<IModalProps> = ({ isOpen, onRequestClose, children }) => {
   }
 
   return (
-    <div className="modal-overlay" onClick={() => onRequestClose()} data-testid="modal-overlay">
+    <div
+      className="modal-overlay"
+      onScroll={(e) => e.preventDefault()}
+      onClick={() => onRequestClose()}
+      data-testid="modal-overlay"
+    >
       <div className="modal-content__wrapper" onClick={(e) => e.stopPropagation()}>
         <div
           className="modal__close"

@@ -9,6 +9,7 @@
   &:hover {
     box-shadow: 0 15px 30px rgb(0 0 0 / 10%);
     transform: translate3d(0px, -2px, 0px);
+    cursor: pointer;
   }
   .text-muted {
     --bs-text-opacity: 1;

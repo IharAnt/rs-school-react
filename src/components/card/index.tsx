@@ -5,7 +5,7 @@ import { ICardProps } from './types';
 const Card: FC<ICardProps> = ({ product }) => {
   return (
     <div className="card-vitrine">
-      <a className="card__link" href={`#/details?id=${product?.id}`}>
+      <a className="card__link">
         <img className="card__image card-img-top" src={product?.thumbnail} alt={product?.title} />
       </a>
       <div className="card-body">
