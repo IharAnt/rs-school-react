@@ -30,6 +30,10 @@ const Main: FC = () => {
     };
   }, []);
 
+  const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
   const search = async (value: string): Promise<void> => {
     try {
       setErrorMessage('');
@@ -58,8 +62,8 @@ const Main: FC = () => {
         name="search"
         label=""
         value={searchValue}
-        onChange={(e) => setSearch(e.target.value)}
-        search={() => search(searchValue)}
+        onChange={onChangeSearch}
+        searchClick={() => search(searchValue)}
         pressEnter={() => search(searchValue)}
         placeholder="Search..."
         aria-label="Small"
