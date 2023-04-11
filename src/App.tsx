@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Main from './pages/main';
 import NotFound from './pages/notFound';
 import AboutUs from './pages/aboutUs';
-import Header from './components/header';
+import Header from './components/header1';
 import { withRouter } from './helper/withRouter';
 import FormPage from './pages/formPage';
 
