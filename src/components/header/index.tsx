@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Navigation from '../navigation1';
+import Navigation from '../navigation';
 import './style.scss';
 import { NavProps } from './types';
 
