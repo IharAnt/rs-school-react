@@ -2,13 +2,17 @@ import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import FormPage from '.';
+import { Provider } from 'react-redux';
+import { store } from '../../store/store';
 
-describe('Main page test', () => {
-  it('Render main page', () => {
+describe('Form page test', () => {
+  it('Render Form page', () => {
     render(
-      <MemoryRouter>
-        <FormPage />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <FormPage />
+        </MemoryRouter>
+      </Provider>
     );
 
     expect(screen.getByText(/Form page/i)).toBeInTheDocument();

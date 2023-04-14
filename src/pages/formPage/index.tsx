@@ -1,21 +1,24 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import RegistrationForm from '../../components/registrationForm';
 import UsersCardList from '../../components/usersCardList';
 import { IUserCard } from '../../types/interfaces/IUserCard';
 import './style.scss';
-//IFopmPageState
-const FormPage: FC = () => {
-  const [cards, setCards] = useState<IUserCard[]>([]);
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { addUserCard } from '../../store/userCardList/userCardListSlice';
 
-  const addUserCard = (card: IUserCard) => {
-    setCards([...cards, card]);
+const FormPage: FC = () => {
+  const { userCards } = useAppSelector((state) => state.userCardList);
+  const dispatch = useAppDispatch();
+
+  const addUser = (card: IUserCard) => {
+    dispatch(addUserCard(card));
   };
 
   return (
     <div className="wrapper">
       <h1>Form page</h1>
-      <RegistrationForm addUserCard={addUserCard}></RegistrationForm>
-      <UsersCardList userCards={cards}></UsersCardList>
+      <RegistrationForm addUserCard={addUser}></RegistrationForm>
+      <UsersCardList userCards={userCards}></UsersCardList>
     </div>
   );
 };
