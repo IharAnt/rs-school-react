@@ -6,7 +6,7 @@ import ProgressSpinner from '../../components/progressSpinner';
 import Message from '../../components/message';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setSerachValue } from '../../store/search/searchSlice';
-import { useGetProductsQuery } from '../../store/api/productsApi';
+import { useSearchProductsQuery } from '../../store/api/productsApi';
 import { getErrorMessage } from '../../helper/errorQuery';
 
 const Main: FC = () => {
@@ -14,7 +14,7 @@ const Main: FC = () => {
   const { searchValue } = useAppSelector((state) => state.search);
   const [searchInput, setSearchInput] = useState(searchValue);
 
-  const { data, error, isFetching } = useGetProductsQuery({ search: searchValue });
+  const { data, error, isFetching } = useSearchProductsQuery({ search: searchValue });
 
   const search = async (value: string): Promise<void> => {
     dispatch(setSerachValue(value));

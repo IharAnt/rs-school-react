@@ -7,6 +7,8 @@ import CardList from '.';
 import appConfig from '../../config/AppConfig';
 import { fakeProduct } from '../../tests/mocks/fakeproduct';
 import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
+import { store } from '../../store/store';
 
 const server = setupServer(
   rest.get(`${appConfig.apiUrl}/66`, (_, res, ctx) => {
@@ -24,7 +26,11 @@ describe('Card list test', () => {
   it('Render card list', async () => {
     const testProducts = product.products.slice(0, 2);
 
-    render(<CardList products={testProducts}></CardList>);
+    render(
+      <Provider store={store}>
+        <CardList products={testProducts}></CardList>
+      </Provider>
+    );
 
     expect(await screen.findAllByText(/Brand/i)).toHaveLength(2);
     expect(await screen.findAllByRole('img')).toHaveLength(2);
@@ -33,7 +39,11 @@ describe('Card list test', () => {
   it('should open and close modal with card', async () => {
     const testProducts = product.products.slice(0, 1);
 
-    render(<CardList products={testProducts}></CardList>);
+    render(
+      <Provider store={store}>
+        <CardList products={testProducts}></CardList>
+      </Provider>
+    );
 
     expect(await screen.findAllByText(/Brand/i)).toHaveLength(1);
     expect(await screen.findAllByRole('img')).toHaveLength(1);
@@ -68,7 +78,11 @@ describe('Card list test', () => {
     );
     const testProducts = product.products.slice(0, 1);
 
-    render(<CardList products={testProducts}></CardList>);
+    render(
+      <Provider store={store}>
+        <CardList products={testProducts}></CardList>
+      </Provider>
+    );
 
     expect(await screen.findAllByText(/Brand/i)).toHaveLength(1);
     expect(await screen.findAllByRole('img')).toHaveLength(1);

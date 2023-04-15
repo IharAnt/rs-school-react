@@ -10,7 +10,7 @@ export const productsApi = createApi({
     baseUrl: appConfig.apiUrl,
   }),
   endpoints: (build) => ({
-    getProducts: build.query<IPaginationResponse<IProduct>, ISearchQuery>({
+    searchProducts: build.query<IPaginationResponse<IProduct>, ISearchQuery>({
       query: ({ skip = 0, limit = 100, search = '' }) => ({
         url: 'search',
         params: {
@@ -20,7 +20,12 @@ export const productsApi = createApi({
         },
       }),
     }),
+    getProduct: build.query<IProduct, number>({
+      query: (id) => ({
+        url: `${id}`,
+      }),
+    }),
   }),
 });
 
-export const { useGetProductsQuery } = productsApi;
+export const { useSearchProductsQuery, useLazyGetProductQuery } = productsApi;
