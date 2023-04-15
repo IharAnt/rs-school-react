@@ -7,6 +7,8 @@ import Main from '.';
 import userEvent from '@testing-library/user-event';
 import appConfig from '../../config/AppConfig';
 import { fakesearchResponse } from '../../tests/mocks/fakesearchResponse';
+import { Provider } from 'react-redux';
+import { store } from '../../store/store';
 
 const fakeSamsungs = {
   ...fakesearchResponse,
@@ -30,9 +32,11 @@ describe('Main page test', () => {
 
   it('Render main page', () => {
     render(
-      <MemoryRouter>
-        <Main />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <Main />
+        </MemoryRouter>
+      </Provider>
     );
 
     expect(screen.getByText(/Main page/i)).toBeInTheDocument();
@@ -41,13 +45,15 @@ describe('Main page test', () => {
   it('Error from Api', async () => {
     server.use(
       rest.get(`${appConfig.apiUrl}/search`, (_, res, ctx) => {
-        return res(ctx.status(400, 'Bad request'));
+        return res(ctx.status(400, 'Bad request'), ctx.json({ message: 'Test error message' }));
       })
     );
     render(
-      <MemoryRouter>
-        <Main />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <Main />
+        </MemoryRouter>
+      </Provider>
     );
 
     const input = screen.getByRole<HTMLInputElement>('search-input');
@@ -61,15 +67,17 @@ describe('Main page test', () => {
     input.focus();
     await user.keyboard('{enter}');
     await waitFor(async () =>
-      expect(await screen.findByText(/Request failed with status code 400/i)).toBeInTheDocument()
+      expect(await screen.findByText(/Test error message/i)).toBeInTheDocument()
     );
   });
 
   it('Search samsung cards', async () => {
     render(
-      <MemoryRouter>
-        <Main />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <Main />
+        </MemoryRouter>
+      </Provider>
     );
 
     const input = screen.getByRole<HTMLInputElement>('search-input');

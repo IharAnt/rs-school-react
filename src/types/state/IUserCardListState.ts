@@ -1,4 +1,4 @@
-import { IUserCard } from './IUserCard';
+import { IUserCard } from '../interfaces/IUserCard';
 
 export interface IUserCardListState {
   userCards: IUserCard[];

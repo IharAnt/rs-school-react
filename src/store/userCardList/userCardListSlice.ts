@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IUserCardListState } from '../../types/interfaces/IUserCardListState';
+import { IUserCardListState } from '../../types/state/IUserCardListState';
 import { IUserCard } from '../../types/interfaces/IUserCard';
 
 const initialState: IUserCardListState = {

@@ -60,7 +60,10 @@ describe('Card list test', () => {
   it('should open modal with error message', async () => {
     server.use(
       rest.get(`${appConfig.apiUrl}/66`, (_, res, ctx) => {
-        return res(ctx.status(400, 'Bad request'));
+        return res(
+          ctx.status(400, 'Bad request'),
+          ctx.json({ message: 'Test error card message' })
+        );
       })
     );
     const testProducts = product.products.slice(0, 1);
@@ -77,7 +80,7 @@ describe('Card list test', () => {
     await user.click(img);
 
     await waitFor(async () =>
-      expect(await screen.findByText(/Request failed with status code 400/i)).toBeInTheDocument()
+      expect(await screen.findByText(/Test error card message/i)).toBeInTheDocument()
     );
   });
 });

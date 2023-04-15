@@ -30,6 +30,7 @@ export default defineConfig({
         ...configDefaults.exclude,
         '**/types.ts',
         '**/types/interfaces/',
+        '**/types/state/',
         '**/*.d.ts',
         '**/*.test.tsx',
         '**/*.test.ts',
