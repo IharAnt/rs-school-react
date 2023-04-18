@@ -1,10 +1,9 @@
 import { describe, it } from 'vitest';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Main from '.';
-import userEvent from '@testing-library/user-event';
 import appConfig from '../../config/AppConfig';
 import { fakesearchResponse } from '../../tests/mocks/fakesearchResponse';
 import { Provider } from 'react-redux';

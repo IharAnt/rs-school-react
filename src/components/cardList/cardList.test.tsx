@@ -1,12 +1,11 @@
 import { describe, it } from 'vitest';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import product from '../../data/products.json';
 import CardList from '.';
 import appConfig from '../../config/AppConfig';
 import { fakeProduct } from '../../tests/mocks/fakeproduct';
-import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { store } from '../../store/store';
 
