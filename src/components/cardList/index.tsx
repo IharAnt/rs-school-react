@@ -4,17 +4,14 @@ import './style.scss';
 import { ICardListProps } from './types';
 import Modal from '../modal';
 import MinCard from '../minCard';
-import { IProduct } from '../../types/interfaces/IProduct';
 import ProgressSpinner from '../progressSpinner';
-import { productService } from '../../services/ProductsService';
-import { AxiosError } from 'axios';
 import Message from '../message';
+import { useLazyGetProductQuery } from '../../store/api/productsApi';
+import { getErrorMessage } from '../../helper/errorQuery';
 
 const CardList: FC<ICardListProps> = ({ products }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [product, seProduct] = useState<IProduct | null>(null);
+  const [getProduct, { data, error, isFetching }] = useLazyGetProductQuery();
 
   const closeModal = () => {
     setIsOpenModal(false);
@@ -22,20 +19,9 @@ const CardList: FC<ICardListProps> = ({ products }) => {
 
   const clickCard = async (productId: number) => {
     try {
-      setErrorMessage('');
-      setIsLoading(true);
-      const product = await productService.getProduct(productId);
-      seProduct(product);
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        setErrorMessage(error.response?.data.message || error.message);
-      } else if (error instanceof Error) {
-        setErrorMessage(error.message);
-      } else {
-        setErrorMessage('Unknown error');
-      }
+      await getProduct(productId).unwrap();
+    } catch {
     } finally {
-      setIsLoading(false);
       setIsOpenModal(true);
     }
   };
@@ -45,16 +31,19 @@ const CardList: FC<ICardListProps> = ({ products }) => {
       {products.map((product) => {
         return <MinCard product={product} onClickCard={clickCard} key={product.id}></MinCard>;
       })}
-      <Modal isOpen={isOpenModal} onRequestClose={closeModal}>
-        {!errorMessage ? (
-          <Card product={product}></Card>
-        ) : (
-          <Message className="products-message" isError={true}>
-            {errorMessage}
-          </Message>
-        )}
-      </Modal>
-      <ProgressSpinner isShow={isLoading}></ProgressSpinner>
+      {isFetching ? (
+        <ProgressSpinner isShow={isFetching}></ProgressSpinner>
+      ) : (
+        <Modal isOpen={isOpenModal} onRequestClose={closeModal}>
+          {!error ? (
+            <Card product={data}></Card>
+          ) : (
+            <Message className="products-message" isError={true}>
+              {getErrorMessage(error)}
+            </Message>
+          )}
+        </Modal>
+      )}
     </div>
   );
 };

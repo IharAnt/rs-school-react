@@ -1,5 +1,5 @@
 import { IProduct } from '../../types/interfaces/IProduct';
 
 export interface ICardProps {
-  product: IProduct | null;
+  product: IProduct | undefined;
 }
