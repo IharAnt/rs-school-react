@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import express from 'express';
+import { ViteDevServer } from 'vite';
 
 // Constants
 const isProduction = process.env.NODE_ENV === 'production';
@@ -10,7 +11,7 @@ const base = process.env.BASE || '/';
 const app = express();
 
 // Add Vite or respective production middlewares
-let vite;
+let vite: ViteDevServer;
 if (!isProduction) {
   const { createServer } = await import('vite');
   vite = await createServer({
@@ -27,7 +28,7 @@ if (!isProduction) {
 }
 
 // Serve HTML
-app.use('*', async (req, res) => {
+app.use('*', async (req, res, next) => {
   const url = req.originalUrl;
   try {
     let template = await fs.readFile('./index.html', 'utf-8');

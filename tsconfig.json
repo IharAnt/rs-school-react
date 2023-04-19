@@ -25,7 +25,7 @@
     "styled.d.ts",
     "vite.config.ts",
     "tsconfig.build.json",
-    "server.js"
+    "server.ts"
   ],
   "ts-node": {
     "esm": true,
