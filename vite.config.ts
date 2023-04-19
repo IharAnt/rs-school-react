@@ -7,7 +7,7 @@ import { configDefaults } from 'vitest/config';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/rs-school-react',
+  base: '/',
   plugins: [react()],
   css: {
     preprocessorOptions: {

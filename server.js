@@ -51,6 +51,6 @@ app.use('*', async (req, res) => {
 });
 
 // Start http server
-// app.listen(port, () => {
-//   console.log(`Server started at http://localhost:${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Server started at http://localhost:${port}`);
+});

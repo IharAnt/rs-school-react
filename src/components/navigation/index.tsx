@@ -10,7 +10,7 @@ const Navigation: FC = () => {
 
   return (
     <nav className="header__navigation">
-      <NavLink to="/main" className={setActive}>
+      <NavLink to="/" className={setActive}>
         Main
       </NavLink>
       <NavLink to="/form" className={setActive}>
