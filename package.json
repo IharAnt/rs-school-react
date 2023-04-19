@@ -5,9 +5,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc --project tsconfig.build.json && vite build",
-    "preview": "vite preview",
+    "dev": "node server",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --ssrManifest --outDir dist/client",
+    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
+    "preview": "cross-env NODE_ENV=production node server",
     "devcheck": "eslint . && prettier --check . && vite",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
@@ -17,7 +19,10 @@
     "coverage": "vitest run --coverage",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "prepare": "husky install .husky"
+    "prepare": "husky install .husky",
+    "dev1": "vite",
+    "build1": "tsc --project tsconfig.build.json && vite build",
+    "preview1": "vite preview"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
@@ -26,7 +31,10 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.9.0"
+    "react-router-dom": "^6.9.0",
+    "sirv": "^2.0.2",
+    "compression": "^1.7.4",
+    "express": "^4.18.2"
   },
   "devDependencies": {
     "@testing-library/dom": "^9.2.0",
@@ -59,6 +67,9 @@
     "sass": "^1.59.3",
     "typescript": "^5.0.3",
     "vite": "^4.1.0",
-    "vitest": "^0.29.3"
+    "vitest": "^0.29.3",
+    "@types/express": "^4.17.16",
+    "@types/node": "^18.11.12",
+    "cross-env": "^7.0.3"
   }
 }

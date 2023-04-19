@@ -24,8 +24,14 @@
     "./src/**/*",
     "styled.d.ts",
     "vite.config.ts",
-    "tsconfig.build.json"
+    "tsconfig.build.json",
+    "server.js"
   ],
+  "ts-node": {
+    "esm": true,
+    "transpileOnly": true,
+    "experimentalSpecifierResolution": "node"
+  },
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
