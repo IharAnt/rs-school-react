@@ -6,10 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "ts-node --esm server.ts",
-    "build": "npm run build:client && npm run build:server",
-    "build:client": "vite build --ssrManifest --outDir dist/client",
-    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
-    "preview": "cross-env NODE_ENV=production node server",
+    "test:e2e": "npx nyc instrument --compact=false src instrumented && npx cypress run --e2e && npx nyc report && npx nyc report --reporter=text-summary",
     "devcheck": "eslint . && prettier --check . && vite",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",

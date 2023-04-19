@@ -34,14 +34,14 @@ app.use('*', async (req, res, next) => {
     let template = await fs.readFile('./index.html', 'utf-8');
     template = await vite.transformIndexHtml(url, template);
     const html = template.split(`<!--app-html-->`);
+    res.write(html[0]);
     const { render } = await vite.ssrLoadModule('/src/entry-server.tsx');
     const { pipe } = await render(url, {
       onShellReady() {
-        res.write(html[0]);
         pipe(res);
       },
       onAllReady() {
-        res.write(html[0] + html[1]);
+        res.write(html[1]);
         res.end();
       },
     });

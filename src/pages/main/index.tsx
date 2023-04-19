@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import CardList from '../../components/cardList';
 import './style.scss';
 import SearchInput from '../../components/searchInput';
@@ -10,11 +10,16 @@ import { useSearchProductsQuery } from '../../store/api/productsApi';
 import { getErrorMessage } from '../../helper/errorQuery';
 
 const Main: FC = () => {
+  const [hasMounted, setHasMounted] = useState(false);
   const dispatch = useAppDispatch();
   const { searchValue } = useAppSelector((state) => state.search);
   const [searchInput, setSearchInput] = useState(searchValue);
 
   const { data, error, isFetching } = useSearchProductsQuery({ search: searchValue });
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   const search = async (value: string): Promise<void> => {
     dispatch(setSerachValue(value));
@@ -40,7 +45,7 @@ const Main: FC = () => {
         aria-label="Small"
       ></SearchInput>
       {isFetching ? (
-        <ProgressSpinner isShow={isFetching} />
+        <ProgressSpinner isShow={isFetching && hasMounted} />
       ) : error ? (
         <Message className="products-message" isError={true}>
           {getErrorMessage(error)}
