@@ -5,8 +5,8 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 
-export const render = (url: string, options: object) => {
-  const html = renderToPipeableStream(
+export const render = (url: string, options?: object) => {
+  return renderToPipeableStream(
     <Provider store={store}>
       <StaticRouter location={url}>
         <App></App>
@@ -14,5 +14,4 @@ export const render = (url: string, options: object) => {
     </Provider>,
     options
   );
-  return { html };
 };
