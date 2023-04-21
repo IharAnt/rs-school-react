@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "ts-node --esm server.ts",
-    "cypress:run-e2e": "cypress run --e2e",
-    "cypress:coverage": "npx nyc report --reporter=text-summary",
+    "cypress:run-e2e-coverage": "cypress run --e2e && npx nyc report --reporter=text-summary",
     "cypress:open": "cypress open",
     "cypress:full": "npx nyc instrument --compact=false src instrumented && npx cypress run --e2e && npx nyc report && npx nyc report --reporter=text-summary",
     "devcheck": "eslint . && prettier --check . && vite",
