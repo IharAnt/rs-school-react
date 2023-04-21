@@ -5,7 +5,7 @@ import { NavProps } from './types';
 
 const Header: FC<NavProps> = (props) => {
   const getActivePage = (): string => {
-    if (props.location.pathname === '/main') {
+    if (props.location.pathname === '/') {
       return 'Main Page';
     }
     if (props.location.pathname === '/about') {

@@ -1,13 +1,14 @@
-import { describe, it } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import product from '../../data/products.json';
 import CardList from '.';
 import appConfig from '../../config/AppConfig';
 import { fakeProduct } from '../../tests/mocks/fakeproduct';
 import { Provider } from 'react-redux';
 import { store } from '../../store/store';
+import userEvent from '@testing-library/user-event';
 
 const server = setupServer(
   rest.get(`${appConfig.apiUrl}/66`, (_, res, ctx) => {
@@ -36,65 +37,65 @@ describe('Card list test', () => {
   });
 
   //problems with nodejs version
-  // it('should open and close modal with card', async () => {
-  //   const testProducts = product.products.slice(0, 1);
+  it('should open and close modal with card', async () => {
+    const testProducts = product.products.slice(0, 1);
 
-  //   render(
-  //     <Provider store={store}>
-  //       <CardList products={testProducts}></CardList>
-  //     </Provider>
-  //   );
+    render(
+      <Provider store={store}>
+        <CardList products={testProducts}></CardList>
+      </Provider>
+    );
 
-  //   expect(await screen.findAllByText(/Brand/i)).toHaveLength(1);
-  //   expect(await screen.findAllByRole('img')).toHaveLength(1);
+    expect(await screen.findAllByText(/Brand/i)).toHaveLength(1);
+    expect(await screen.findAllByRole('img')).toHaveLength(1);
 
-  //   const img = await screen.findByText(/Brand/i);
-  //   expect(img).toBeInTheDocument();
+    const img = await screen.findByText(/Brand/i);
+    expect(img).toBeInTheDocument();
 
-  //   const user = userEvent.setup();
-  //   await user.click(img);
+    const user = userEvent.setup();
+    await user.click(img);
 
-  //   await waitFor(async () => {
-  //     expect(screen.queryByText(/Stock/i)).toBeInTheDocument();
-  //     expect(screen.queryByText(/Rating/i)).toBeInTheDocument();
-  //   });
+    await waitFor(async () => {
+      expect(screen.queryByText(/Stock/i)).toBeInTheDocument();
+      expect(screen.queryByText(/Rating/i)).toBeInTheDocument();
+    });
 
-  //   const overlay = screen.getByTestId<HTMLDivElement>('modal-close');
-  //   expect(overlay).toBeInTheDocument();
+    const overlay = screen.getByTestId<HTMLDivElement>('modal-close');
+    expect(overlay).toBeInTheDocument();
 
-  //   await user.click(overlay);
-  //   expect(screen.queryByText(/Stock/i)).not.toBeInTheDocument();
-  //   expect(screen.queryByText(/Rating/i)).not.toBeInTheDocument();
-  // });
+    await user.click(overlay);
+    expect(screen.queryByText(/Stock/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Rating/i)).not.toBeInTheDocument();
+  });
 
-  // it('should open modal with error message', async () => {
-  //   server.use(
-  //     rest.get(`${appConfig.apiUrl}/66`, (_, res, ctx) => {
-  //       return res(
-  //         ctx.status(400, 'Bad request'),
-  //         ctx.json({ message: 'Test error card message' })
-  //       );
-  //     })
-  //   );
-  //   const testProducts = product.products.slice(0, 1);
+  it('should open modal with error message', async () => {
+    server.use(
+      rest.get(`${appConfig.apiUrl}/66`, (_, res, ctx) => {
+        return res(
+          ctx.status(400, 'Bad request'),
+          ctx.json({ message: 'Test error card message' })
+        );
+      })
+    );
+    const testProducts = product.products.slice(0, 1);
 
-  //   render(
-  //     <Provider store={store}>
-  //       <CardList products={testProducts}></CardList>
-  //     </Provider>
-  //   );
+    render(
+      <Provider store={store}>
+        <CardList products={testProducts}></CardList>
+      </Provider>
+    );
 
-  //   expect(await screen.findAllByText(/Brand/i)).toHaveLength(1);
-  //   expect(await screen.findAllByRole('img')).toHaveLength(1);
+    expect(await screen.findAllByText(/Brand/i)).toHaveLength(1);
+    expect(await screen.findAllByRole('img')).toHaveLength(1);
 
-  //   const img = await screen.findByText(/Brand/i);
-  //   expect(img).toBeInTheDocument();
+    const img = await screen.findByText(/Brand/i);
+    expect(img).toBeInTheDocument();
 
-  //   const user = userEvent.setup();
-  //   await user.click(img);
+    const user = userEvent.setup();
+    await user.click(img);
 
-  //   await waitFor(async () =>
-  //     expect(await screen.findByText(/Test error card message/i)).toBeInTheDocument()
-  //   );
-  // });
+    await waitFor(async () =>
+      expect(await screen.findByText(/Test error card message/i)).toBeInTheDocument()
+    );
+  });
 });

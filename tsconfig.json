@@ -24,8 +24,19 @@
     "./src/**/*",
     "styled.d.ts",
     "vite.config.ts",
-    "tsconfig.build.json"
+    "tsconfig.build.json",
+    "server.ts",
+    "cypress.config.ts",
+    "./cypress/support/commands.ts",
+    "./cypress/support/component.ts",
+    "./cypress/support/e2e.ts",
+    "**/*.cy.ts"
   ],
+  "ts-node": {
+    "esm": true,
+    "transpileOnly": true,
+    "experimentalSpecifierResolution": "node"
+  },
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

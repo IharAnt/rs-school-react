@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Main from './pages/main';
 import NotFound from './pages/notFound';
 import AboutUs from './pages/aboutUs';
@@ -14,8 +14,9 @@ const App = () => {
     <>
       <HeaderWithRouter />
       <Routes>
-        <Route path="/" element={<Navigate to="/main" replace />} />
-        <Route path="/main" element={<Main />} />
+        {/* <Route path="/" element={<Navigate to="/main" replace />} /> */}
+        <Route index element={<Main />} />
+        {/* <Route path="/main" element={<Main />} /> */}
         <Route path="/about" element={<AboutUs />} />
         <Route path="/form" element={<FormPage />} />
         <Route path="*" element={<NotFound />} />
