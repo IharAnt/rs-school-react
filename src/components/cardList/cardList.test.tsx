@@ -1,4 +1,4 @@
-import { describe, it } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { render, screen } from '@testing-library/react';

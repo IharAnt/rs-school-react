@@ -1,4 +1,4 @@
-import { describe, it, vi } from 'vitest';
+import { describe, it, vi, expect } from 'vitest';
 import { productService } from '../../services/ProductsService';
 import { fakesearchResponse } from '../mocks/fakesearchResponse';
 import apiClient from '../../services/ApiClient';
