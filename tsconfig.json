@@ -25,7 +25,12 @@
     "styled.d.ts",
     "vite.config.ts",
     "tsconfig.build.json",
-    "server.ts"
+    "server.ts",
+    "cypress.config.ts",
+    "./cypress/support/commands.ts",
+    "./cypress/support/component.ts",
+    "./cypress/support/e2e.ts",
+    "**/*.cy.ts"
   ],
   "ts-node": {
     "esm": true,

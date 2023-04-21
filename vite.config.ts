@@ -4,11 +4,22 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { configDefaults } from 'vitest/config';
+import istanbul from 'vite-plugin-istanbul';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/',
-  plugins: [react()],
+  plugins: [
+    react(),
+    istanbul({
+      cypress: true,
+      requireEnv: false,
+    }),
+  ],
+  server: {
+    host: true,
+    port: 5173,
+  },
   css: {
     preprocessorOptions: {
       scss: {
@@ -20,6 +31,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/tests/setupTests.ts'],
+    exclude: ['node_modules', 'instrumented'],
     coverage: {
       enabled: true,
       provider: 'c8',
@@ -35,6 +47,7 @@ export default defineConfig({
         '**/*.test.tsx',
         '**/*.test.ts',
         'src//main.tsx',
+        'instrumented',
       ],
     },
   },

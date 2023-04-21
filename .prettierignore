@@ -5,3 +5,7 @@
 build
 dist
 coverage
+instrumented
+.nyc_output
+cypress/support/component-index.html
+
